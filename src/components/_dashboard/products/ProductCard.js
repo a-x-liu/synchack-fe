@@ -51,7 +51,7 @@ export default function ShopProductCard({ product }) {
 
       <Stack spacing={2} sx={{ p: 3 }}>
         <Link to="/dashboard" color="inherit" underline="hover" component={RouterLink}>
-          <Typography variant="subtitle2" noWrap>
+          <Typography variant="subtitle2" noWrap textAlign={'center'}>
             {name}
           </Typography>
         </Link>
