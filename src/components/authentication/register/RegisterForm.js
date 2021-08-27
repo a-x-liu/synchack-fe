@@ -221,10 +221,10 @@ export default function RegisterForm() {
                   {imageList.map((image, index) => (
                     <div key={index} className="image-item">
                       <img src={image.data_url} alt="" width="100" />
-                      <div className="image-item__btn-wrapper">
-                        <button onClick={() => onImageUpdate(index)}>Update</button>
-                        <button onClick={() => onImageRemove(index)}>Remove</button>
-                      </div>
+                      <span className="image-item__btn-wrapper">
+                        <LoadingButton size="small" variant="contained" onClick={() => onImageUpdate(index)}>Update</LoadingButton>
+                        <LoadingButton size="small" variant="contained" onClick={() => onImageRemove(index)}>Remove</LoadingButton>
+                      </span>
                     </div>
                   ))}
                 </div>
