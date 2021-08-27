@@ -47,10 +47,10 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Dashboard: Products | Minimal-UI">
+    <Page title="Explore organizations">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
+          Explore organizations
         </Typography>
 
         <Stack
@@ -73,7 +73,6 @@ export default function EcommerceShop() {
         </Stack>
 
         <ProductList products={PRODUCTS} />
-        <ProductCartWidget />
       </Container>
     </Page>
   );

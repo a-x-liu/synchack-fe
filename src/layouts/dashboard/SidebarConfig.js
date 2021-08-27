@@ -6,6 +6,7 @@ import fileTextFill from '@iconify/icons-eva/file-text-fill';
 import lockFill from '@iconify/icons-eva/lock-fill';
 import personAddFill from '@iconify/icons-eva/person-add-fill';
 import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
+import searchFill from '@iconify/icons-eva/search-fill';
 
 // ----------------------------------------------------------------------
 
@@ -23,9 +24,9 @@ const sidebarConfig = [
     icon: getIcon(peopleFill)
   },
   {
-    title: 'product',
-    path: '/dashboard/products',
-    icon: getIcon(shoppingBagFill)
+    title: 'explore',
+    path: '/dashboard/explore',
+    icon: getIcon(searchFill)
   },
   {
     title: 'blog',
