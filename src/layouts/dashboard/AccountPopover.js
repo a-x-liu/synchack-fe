@@ -1,9 +1,11 @@
 import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
+import axios from 'axios';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
 import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 // material
 import { alpha } from '@material-ui/core/styles';
 import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '@material-ui/core';
@@ -35,8 +37,31 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    console.log('hi')
+    console.log(window.localStorage.getItem('token'))
+    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/account/logout', null, {
+      headers:{
+        'Authorization': `Token ${window.localStorage.getItem('token')}`
+      },
+    })
+    .then(function (response) {
+      console.log(response);
+      if(response.data == "Successfully Logged Out"){
+        navigate('/login')
+      } else {
+        navigate('/dashboard/blog')
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -110,7 +135,7 @@ export default function AccountPopover() {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined">
+          <Button fullWidth color="inherit" variant="outlined" onClick={logout}>
             Logout
           </Button>
         </Box>
