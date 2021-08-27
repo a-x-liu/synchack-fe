@@ -8,12 +8,33 @@ import { useNavigate } from 'react-router-dom';
 // material
 import { Stack, TextField, IconButton, InputAdornment } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-
+import { withStyles } from '@material-ui/styles';
+import { green } from '@material-ui/core/colors';
+import Checkbox from '@material-ui/core/Checkbox';
 // ----------------------------------------------------------------------
+
+const GreenCheckbox = withStyles({
+  root: {
+    color: "#00AB55",
+    '&$checked': {
+      color: "#00AB55",
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
 
 export default function RegisterForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const [isOrg, setIsOrg] = useState(false);
+
+  const handleChange = () => {
+    setIsOrg(current => !current);
+    const personalNames = document.getElementById("personalName")
+    if (isOrg) personalNames.style.display = "block";
+    else personalNames.style.display = "none"; 
+  };
 
   const RegisterSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -21,6 +42,7 @@ export default function RegisterForm() {
       .max(50, 'Too Long!')
       .required('First name required'),
     lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
+    userName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('User name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required')
   });
@@ -29,6 +51,7 @@ export default function RegisterForm() {
     initialValues: {
       firstName: '',
       lastName: '',
+      userName: '',
       email: '',
       password: ''
     },
@@ -44,27 +67,38 @@ export default function RegisterForm() {
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <TextField
-              fullWidth
-              label="First name"
-              {...getFieldProps('firstName')}
-              error={Boolean(touched.firstName && errors.firstName)}
-              helperText={touched.firstName && errors.firstName}
-            />
+          <div id="personalName">
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+              <TextField
+                fullWidth
+                label="First name"
+                {...getFieldProps('firstName')}
+                error={Boolean(touched.firstName && errors.firstName)}
+                helperText={touched.firstName && errors.firstName}
+              />
 
-            <TextField
-              fullWidth
-              label="Last name"
-              {...getFieldProps('lastName')}
-              error={Boolean(touched.lastName && errors.lastName)}
-              helperText={touched.lastName && errors.lastName}
-            />
-          </Stack>
+              <TextField
+                fullWidth
+                label="Last name"
+                {...getFieldProps('lastName')}
+                error={Boolean(touched.lastName && errors.lastName)}
+                helperText={touched.lastName && errors.lastName}
+              />
+            </Stack>
+          </div>
+          <TextField
+            fullWidth
+            // autoComplete="username"
+            type="userName"
+            label="User name"
+            {...getFieldProps('userName')}
+            error={Boolean(touched.userName && errors.userName)}
+            helperText={touched.userName && errors.userName}
+          />
 
           <TextField
             fullWidth
-            autoComplete="username"
+            // autoComplete="username"
             type="email"
             label="Email address"
             {...getFieldProps('email')}
@@ -90,7 +124,10 @@ export default function RegisterForm() {
             error={Boolean(touched.password && errors.password)}
             helperText={touched.password && errors.password}
           />
-
+          <div style={{ marginLeft: "-10px"}}>
+            <GreenCheckbox checked={isOrg} onChange={() => handleChange() } name="isOrg" />
+            is organisation
+          </div>
           <LoadingButton
             fullWidth
             size="large"
