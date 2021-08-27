@@ -61,9 +61,9 @@ export default function RegisterForm() {
       bio: ''
     },
     validationSchema: RegisterSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
-    }
+    // onSubmit: () => {
+    //   navigate('/dashboard', { replace: true });
+    // }
   });
 
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
@@ -103,6 +103,8 @@ export default function RegisterForm() {
     }, null)
     .then(function (response) {
       console.log(response);
+      if (response.data.response === "Registration successful!") navigate('/login');
+      else navigate('/register');
     })
     .catch(function (error) {
       console.log(error);
@@ -219,13 +221,13 @@ export default function RegisterForm() {
                     bottom: '0px'
                   }}>Add a profile picture</span>
                   {imageList.map((image, index) => (
-                    <div key={index} className="image-item">
+                    <span key={index} className="image-item">
                       <img src={image.data_url} alt="" width="100" />
                       <span className="image-item__btn-wrapper">
                         <LoadingButton size="small" variant="contained" onClick={() => onImageUpdate(index)}>Update</LoadingButton>
                         <LoadingButton size="small" variant="contained" onClick={() => onImageRemove(index)}>Remove</LoadingButton>
                       </span>
-                    </div>
+                    </span>
                   ))}
                 </div>
               )}
