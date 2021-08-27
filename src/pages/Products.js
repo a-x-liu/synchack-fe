@@ -50,7 +50,7 @@ export default function EcommerceShop() {
     <Page title="Explore organizations">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Explore organizations
+          Explore various organizations that accept donations, subscriptions and more!
         </Typography>
 
         <Stack
