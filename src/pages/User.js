@@ -130,7 +130,7 @@ export default function User() {
   const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
-
+  
   return (
     <Page title="Search Users">
       <Container>
