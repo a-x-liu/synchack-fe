@@ -16,12 +16,12 @@ import account from '../../_mocks_/account';
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
+    label: 'Profile',
     icon: homeFill,
-    linkTo: '/'
+    linkTo: '/dashboard/profile'
   },
   {
-    label: 'Profile',
+    label: 'Feed',
     icon: personFill,
     linkTo: '#'
   },
