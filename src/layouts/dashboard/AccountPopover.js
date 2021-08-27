@@ -37,20 +37,22 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  
   const logout = async () => {
-    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/account/logout', 
-    {
-      headers: {
-        Authorization: `Token ${window.localStorage.getItem('token')}`
-      }})
+    console.log('hi')
+    console.log(window.localStorage.getItem('token'))
+    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/account/logout', null, {
+      headers:{
+        'Authorization': `Token ${window.localStorage.getItem('token')}`
+      },
+    })
     .then(function (response) {
       console.log(response);
-      if(response.status == 401){
+      if(response.data == "Successfully Logged Out"){
         navigate('/login')
       } else {
         navigate('/dashboard/blog')
