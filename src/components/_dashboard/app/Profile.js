@@ -100,19 +100,21 @@ export default function Profile({ profile }) {
         borderRadius: "10px"
         }} >{info.bio}
         </div> */}
-        
         <Card style={{ position: 'absolute', width: "400px", marginLeft: '10px' }}>
           <CardContent>
             <Typography variant="h6">
               Bio
             </Typography>
+            <span style={{ overflowWrap: "break-word" }}>
               {info.bio}
+            </span>
+              
             {/* <Typography variant="body2" component="p">
               Thank You for Supporting Us 
             </Typography> */}
           </CardContent>
         </Card>
-        <Card style={{ position: 'absolute', width: "400px", marginLeft: '10px', marginTop:'100px' }}>
+        <Card style={{ position: 'absolute', width: "400px", marginLeft: '10px', marginTop:'170px' }}>
           <CardContent>
             <Typography variant="h6">
               Your Donations:
@@ -126,7 +128,6 @@ export default function Profile({ profile }) {
             </Typography> */}
           </CardContent>
         </Card>
-       
       {/* <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4" gutterBottom>
           Create Post

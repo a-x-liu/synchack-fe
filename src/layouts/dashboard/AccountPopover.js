@@ -105,7 +105,9 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {window.localStorage.getItem('username')} ({window.localStorage.getItem('first')} {window.localStorage.getItem('last')})
+            {window.localStorage.getItem('username')} 
+            {window.localStorage.getItem('first') ? (window.localStorage.getItem('first') + " " +window.localStorage.getItem('last')) : ""}
+            
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {window.localStorage.getItem('email')}
