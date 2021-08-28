@@ -202,7 +202,7 @@ export default function RegisterForm() {
           </div>
           <div style={{ marginLeft: "-10px"}}>
             <GreenCheckbox checked={isOrg} onChange={() => handleChange() } name="isOrg" />
-            is organisation
+            Organisation
           </div>
 
           {/* <div>

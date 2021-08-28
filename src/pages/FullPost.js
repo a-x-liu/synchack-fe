@@ -55,7 +55,7 @@ export default function Blog() {
   }, [])
   
   return (
-    <Page title="Dashboard: Blog | Minimal-UI">
+    <Page title="Blog | PhilGreat">
       <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
         <Box sx={{ pb: 5 }}>
           <Typography variant="h4">View Post</Typography>
