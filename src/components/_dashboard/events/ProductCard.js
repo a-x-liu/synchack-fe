@@ -6,12 +6,7 @@ import { Icon } from '@iconify/react';
 // material
 import { Box, Card, Link, Typography, Stack, Button } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-// utils
-import { fCurrency } from '../../../utils/formatNumber';
-//
-import Label from '../../Label';
-import ColorPreview from '../../ColorPreview';
-import Heart from '@iconify/icons-eva/heart-outline';
+import './Events.css'
 
 // ----------------------------------------------------------------------
 
@@ -124,10 +119,6 @@ export default function ShopProductCard({ product }) {
         </RouterLink>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          {/* <ColorPreview colors={colors} /> */}
-          <Typography variant="subtitle2" noWrap>
-            {bio}
-          </Typography>
           <Typography variant="subtitle1">
             <Typography
               component="span"
@@ -138,28 +129,28 @@ export default function ShopProductCard({ product }) {
               }}
             >
             </Typography>
+            <div className="flexRow">
+              <Typography variant="subtitle2" noWrap>
+                ATTENDEES: {subscriber_count}
+              </Typography>
+            </div>
             <span id={'sub'+pk}>
-            <Button
-              variant="contained"
-              onClick={sub}
-              startIcon={<Icon icon={Heart} />}
-            >
-              Subscribe!
-            </Button>
-            </span>
-            <span style={{display: 'none'}}
-              id={'unsub'+pk}>
-            <Button
-              variant="contained"
-              onClick={unsub}
-              startIcon={<Icon icon={Heart} />}
-            >
-              Unsubscribe
-            </Button>
-            </span>
-            <Typography variant="subtitle2" noWrap>
-              No. of Subs: {subscriber_count}
-            </Typography>
+              <Button
+                variant="contained"
+                onClick={sub}
+              >
+                GOING
+              </Button>
+              </span>
+              <span style={{display: 'none'}}
+                id={'unsub'+pk}>
+                <Button
+                  variant="contained"
+                  onClick={unsub}
+                >
+                CANCEL
+              </Button>
+              </span>
           </Typography>
         </Stack>
       </Stack>

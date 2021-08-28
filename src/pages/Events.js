@@ -9,11 +9,9 @@ import Page from '../components/Page';
 import {
   ProductSort,
   ProductList,
-  ProductCartWidget,
   ProductFilterSidebar
 } from '../components/_dashboard/events';
 //
-import products from '../_mocks_/products';
 
 // ----------------------------------------------------------------------
 
@@ -79,14 +77,6 @@ export default function Events() {
           sx={{ mb: 5 }}
         >
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
-              formik={formik}
-              isOpenFilter={openFilter}
-              onResetFilter={handleResetFilter}
-              onOpenFilter={handleOpenFilter}
-              onCloseFilter={handleCloseFilter}
-            />
-            {/*<ProductSort />*/}
           </Stack>
         </Stack>
         <ProductList products={prod} />
