@@ -50,8 +50,12 @@ export default function LoginForm() {
       console.log(response);
       window.localStorage.setItem('token', response.data.token);
       window.localStorage.setItem('user_id', response.data.user_id);
-      window.localStorage.setItem('username', response.data.userid);
+      window.localStorage.setItem('username', response.data.username);
       window.localStorage.setItem('is_org', response.data.is_org);
+      window.localStorage.setItem('profile_pic', response.data.profile_pic);
+      window.localStorage.setItem('email', response.data.email);
+      window.localStorage.setItem('first', response.data.first_name);
+      window.localStorage.setItem('last', response.data.last_name);
       if(response.data.response === "Successful login!"){
         navigate('/dashboard/blog')
       } else {
