@@ -33,7 +33,7 @@ DonationCard.propTypes = {
 
 export default function DonationCard({ don }) {
   const [show, setShow] = useState(false);
-
+  const [donates, setDonates] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const { pk, post_id_to, title, amount, start_date, is_recurring, occurence,times_donated } = don;
@@ -65,14 +65,15 @@ export default function DonationCard({ don }) {
     { 
       headers: {
         Authorization: `Token ${window.localStorage.getItem('token')}`,
-        "Access-Control-Allow-Origin": "*"
-      },
+        "Access-Control-Request-Headers": "Content-Type"
+      }, 
       data: {
         "donate_id": pk,
       }
     })
     .then(function (response) {
       console.log(response);
+      // setDonates(c => c);
     })
     .catch(function (error) {
       console.log(error);
@@ -113,8 +114,6 @@ export default function DonationCard({ don }) {
                 Stop donating :(
         </Button>
       </Card>
-      
-
     </div>
   );
 }
