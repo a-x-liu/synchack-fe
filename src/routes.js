@@ -21,8 +21,8 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { path: '/', element: <Navigate to="/dashboard/profile" replace /> },
-        { path: 'profile', element: <DashboardApp /> },
+        { path: '/', element: <Navigate to="/dashboard/profile/:userId" replace /> },
+        { path: 'profile/:userId', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'explore', element: <Products /> },
         { path: 'blog', element: <Blog /> },

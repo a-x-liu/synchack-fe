@@ -9,6 +9,7 @@ Profile.propTypes = {
   profile: PropTypes.object
 };
 
+
 const useStyles = makeStyles((theme) => ({
   // root: {
   //   display: 'flex',
@@ -27,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Profile({ profile }) {
+  
+  // console.log(params);
   const info = profile;
   console.log(info);
   const name = info.first_name + " " + info.last_name;
