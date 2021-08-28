@@ -161,8 +161,14 @@ export default function User() {
       }
     })
     .then(function (response) {
-      // console.log(response);
-      setUsers(response.data.results)
+      const data = response.data.results;
+      for (let i = 0; i < response.data.count; i++) {
+        if (response.data.results[i].username === "admin") {
+          const index = data.indexOf(i);
+          data.splice(index, 1);
+        }
+      }
+      setUsers(data)
       // window.localStorage.setItem('token', response.data.token);
       // window.localStorage.setItem('user_id', response.data.user_id);
       // if(response.data.response === "Successful login!"){

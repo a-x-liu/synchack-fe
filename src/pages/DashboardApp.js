@@ -31,7 +31,7 @@ import { useParams } from "react-router-dom";
 
 export default function DashboardApp() {
   const params = useParams();
-  console.log(params)
+  // console.log(params)
   const location = useLocation();
   if (location !== null) console.log(location)
   // console.log(userId)
@@ -51,7 +51,7 @@ export default function DashboardApp() {
     .catch(function (error) {
       console.log(error);
     });
-  }, [])
+  }, [params])
   
 
 
