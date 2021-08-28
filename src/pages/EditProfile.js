@@ -3,12 +3,13 @@ import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
 import { useState } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { useLocation, Link as RouterLink } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import React from 'react';
 import axios from 'axios'
 
 import Send from '@iconify/icons-eva/paper-plane-fill';
+import PropTypes from 'prop-types';
 
 // material
 import {
@@ -47,6 +48,8 @@ import ImageUploading from 'react-images-uploading';
 import InsertPhotoOutlinedIcon from '@iconify/icons-eva/image-outline';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/styles';
+// import { useLocation, useParams, Link as RouterLink } from 'react-router-dom';
+import Edit from '@iconify/icons-eva/edit-outline';
 
 const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
   width: '100%',
@@ -62,7 +65,13 @@ const ImgUpload = styled('div')(({ theme }) => ({
   padding: '14px 16.5px 14px 16.5px'
 }));
 
-export default function EditProfile() {
+EditProfile.propTypes = {
+  profile: PropTypes.object
+};
+
+
+export default function EditProfile({ profile }) {
+  const info = profile;
   const [thumbnail, setThumbnail] = useState('');
   const [values, setValues] = React.useState({
     title: '',
@@ -77,9 +86,28 @@ export default function EditProfile() {
     setThumbnail(imageList);
     console.log(imageList)
   };
-  
+  const location = useLocation();
+  if (location !== null) console.log(location)
+
   return(
     <Page title="User | Minimal-UI">
+      <Container>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+            <Typography variant="h4" gutterBottom>{profile.username}'s profile</Typography>
+            <span id="editProfile" style={{ display: "none" }}>
+              <Button
+                variant="contained"
+                component={RouterLink}
+                to= "/dashboard/editProfile"
+                startIcon={<Icon icon={Edit} />} 
+              >
+                Edit Profile
+              </Button>
+            </span>
+        </Stack>
+      </Container>
+
+
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
