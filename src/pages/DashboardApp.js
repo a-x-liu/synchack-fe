@@ -31,21 +31,21 @@ export default function DashboardApp({ userId }) {
   console.log(userId)
   const [profile, setProfile] = useState({});
 
-  useEffect(async () => {
-    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${window.localStorage.getItem('user_id')}`, 
-    { 
-      headers: { 
-        Authorization: "Token " + window.localStorage.getItem('token'),
-      }
-    })
-    .then(function (response) {
-      // console.log(response);
-      setProfile(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }, [])
+  // useEffect(async () => {
+  //   axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${window.localStorage.getItem('user_id')}`, 
+  //   { 
+  //     headers: { 
+  //       Authorization: "Token " + window.localStorage.getItem('token'),
+  //     }
+  //   })
+  //   .then(function (response) {
+  //     // console.log(response);
+  //     setProfile(response.data);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // }, [])
   
 
 
