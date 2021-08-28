@@ -76,7 +76,7 @@ export default function DashboardApp() {
       
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
-          <Typography variant="h4">Hi, Welcome back</Typography>
+          <Typography variant="h4">Hi, this is {profile.username}'s profile</Typography>
         </Box>  
 
 
