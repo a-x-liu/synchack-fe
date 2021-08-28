@@ -50,10 +50,14 @@ export default function Blog() {
   const [posts, setPosts] = useState([])
 
   useEffect(async () => {
-    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/post/all/')
-    .then(function (res) {
+    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/post/feed/', {
+      headers: {
+        authorization: 'Token ' + localStorage.getItem('token')
+      }
+    }).then(function (res) {
       // console.log(res.data.results[0].time_created)
-      setPosts(res.data.results)
+      console.log(res)
+      setPosts(res.data.posts)
     }).catch(function (err) {
       console.log(err)
     })
@@ -91,7 +95,7 @@ export default function Blog() {
         >
           {posts.map((post, index) => {
             console.log(post)
-            if (post.is_shared == 1) {
+            if (post.is_shared == null) {
               return(<BlogPostCard key={index} post={post} index={index} full={false}/>)
             } else {
               return(<SharePostCard key={index} post={post} index={index} full={false}/>)
