@@ -4,20 +4,8 @@ import { makeStyles } from '@material-ui/styles';
 import { useState } from 'react';
 import {
   Card,
-  Table,
-  Stack,
   Avatar,
-  Button,
-  Checkbox,
-  TableRow,
-  TableBody,
-  TableCell,
-  Container,
   Typography,
-  ListItemAvatar,
-  ListItemText,
-  ListItem,
-  List,
   CardContent
 } from '@material-ui/core';
 import { Icon } from '@iconify/react';
@@ -50,21 +38,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Profile({ profile }) {
   const [donations, setDonations] = useState([]);
-   // const donations = async () => {
-  //   axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=7`, 
-  //   {
-  //     headers: { 
-  //       Authorization: "Token aa2b99d5ecda0e0fde9d4aa90082aab2331c3c4f"
-  //     }
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // }
-  // console.log(params);
+  const [events, setEvents] = useState([]);
+
+  /*
+  const getMyEvents = async () => {
+    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/event/userevents?user_id=${window.localStorage.getItem('user_id')}`, {
+      headers:{
+        'Authorization': `Token ${window.localStorage.getItem('token')}`
+      },
+    })
+    .then(function (response) {
+      console.log(response);
+      setEvents(response.data.results);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  */
   React.useEffect(async () => {
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/donate/userdonates/?user_id=${window.localStorage.getItem('user_id')}`, {},{})
     .then(function (response) {

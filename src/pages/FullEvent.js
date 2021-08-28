@@ -7,7 +7,7 @@ import messageCircleFill from '@iconify/icons-eva/message-circle-fill';
 import Heart from '@iconify/icons-eva/heart-fill';
 // material
 import { alpha, styled } from '@material-ui/core/styles';
-import { Box, Link, Card, Grid, Avatar, Typography, CardContent, Container } from '@material-ui/core';
+import { Box, Link, Card, Grid, Avatar, Typography, CardContent, Container, Button } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 // utils
 import { fDate } from '../utils/formatTime';
@@ -60,6 +60,23 @@ const TitleStyle = styled(Link)({
 
 export default function FullEvent() {
   const params = useParams();
+  const going = async () => {
+    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/participant/attend/', {
+      "event_id": params.eventid
+    }, {
+      headers: {'Authorization': `Token ${window.localStorage.getItem('token')}`}
+    })
+    .then(function (response) {
+      console.log(response);
+      // document.getElementById('sub'+event['pk']).style.display = 'none'
+      // document.getElementById('unsub'+event['pk']).style.display = 'block'
+    })
+    .catch(function (error) {
+      console.log(error);
+      
+    });
+    setGoing(true)
+  }
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({
     'pk': '',
@@ -74,6 +91,7 @@ export default function FullEvent() {
     'event_pic': '',
     'partcipation_count': '',
   })
+  const [going2, setGoing] = React.useState(false);
 
   const POST_INFO = [
     { number: 75030, icon: messageCircleFill },
@@ -86,11 +104,54 @@ export default function FullEvent() {
         Authorization: 'Token ' + localStorage.getItem('token')
       }
     }).then(function (res) {
+      console.log(res)
       setData(res.data)
     }).catch(function (err) {
       console.log(err)
     })
+
+    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/event/isattending/?event_id=${params.eventid}`, {
+      headers: {
+        Authorization: 'Token ' + localStorage.getItem('token')
+      }
+    }).then(function (res) {
+      console.log(res)
+      setGoing(res.data.attending)
+    }).catch(function (err) {
+      console.log(err)
+    })
   }, [])
+
+  const cancel = async () => {
+    console.log(params.eventid)
+    axios.delete("https://zorlvan-enterprise-backend.herokuapp.com/participant/unattend/", 
+    {
+      headers: {
+        Authorization: `Token ${window.localStorage.getItem('token')}`
+      },
+      data: {
+        "event_id": params.eventid
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+      // document.getElementById('sub'+event['pk']).style.display = 'block'
+      // document.getElementById('unsub'+event['pk']).style.display = 'none'
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    setGoing(false)
+  }
+
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
   
   return (
     <Page title="Blog | PhilGreat">
@@ -152,6 +213,25 @@ export default function FullEvent() {
               
               <InfoStyle>
                 <div style={{ display: 'flex', alignItems: 'center'}}>
+                  {going2 == false ? 
+                    <span>
+                      <Button
+                        variant="contained"
+                        onClick={going}
+                      >
+                        GOING
+                      </Button>
+                      </span>
+                      :
+                      <span>
+                        <Button
+                          variant="contained"
+                          onClick={cancel}
+                        >
+                        CANCEL
+                      </Button>
+                    </span>
+                  }
                   {POST_INFO.map((info, index) => (
                     <Box
                     key={index}
