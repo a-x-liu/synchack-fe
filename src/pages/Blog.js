@@ -22,6 +22,10 @@ import SharePostCard from 'src/components/_dashboard/blog/SharePostCard';
 import POSTS from '../_mocks_/blog';
 import { useState } from 'react';
 import axios from 'axios'
+import mc from "../images/mc.png"
+
+import UNI from "../images/unicef.png"
+import WWE from "../images/wwe.png"
 
 // ----------------------------------------------------------------------
 
@@ -118,10 +122,26 @@ export default function Blog() {
               <List dense={true}>
                 <ListItem style={{paddingLeft: '0px', paddingTop: '0px'}}>
                   <ListItemAvatar>
-                    <Avatar />
+                    <Avatar src={mc}/>
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Single-line item"
+                    primary="Ronald McDonald"
+                  />
+                </ListItem>
+                <ListItem style={{paddingLeft: '0px', paddingTop: '0px'}}>
+                  <ListItemAvatar>
+                    <Avatar src={UNI} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary="Unicef"
+                  />
+                </ListItem>
+                <ListItem style={{paddingLeft: '0px', paddingTop: '0px'}}>
+                  <ListItemAvatar>
+                    <Avatar src={WWE} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary="WWF"
                   />
                 </ListItem>
               </List>

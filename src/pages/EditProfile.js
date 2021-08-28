@@ -108,8 +108,9 @@ export default function EditProfile({ profile, isFinished }) {
         console.log(error);
       });
     }
+    if (window.localStorage.getItem("profile_pic") && thumbnail[0].data_url === "") thumbnail[0].data_url = window.localStorage.getItem("profile_pic")
     axios.put('https://zorlvan-enterprise-backend.herokuapp.com/account/edit', {
-      "profile_pic": (thumbnail === "" ? "" : thumbnail[0].data_url),
+      "profile_pic": (thumbnail[0].data_url === "" ? "" : thumbnail[0].data_url),
       "first_name": (values.first_name === "" ? info.first_name : values.first_name),
       "last_name": (values.last_name === "" ? info.last_name : values.last_name),
       "bio": (values.bio === "" ? info.bio : values.bio)
