@@ -19,27 +19,26 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function Page404() {
+export default function ThankYou() {
   return (
-    <RootStyle title="404 Page Not Found | PhilGreat">
+    <RootStyle title="Thanks for your contribution!">
       <Container>
         <MotionContainer initial="initial" open>
           <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
             <motion.div variants={varBounceIn}>
               <Typography variant="h3" paragraph>
-                Sorry, page not found!
+                Thank you for your donation!
               </Typography>
             </motion.div>
             <Typography sx={{ color: 'text.secondary' }}>
-              Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL?
-              Be sure to check your spelling.
+              Your contribution will help make a difference, and you can PhilGood knowing that you've helped an established cause.
             </Typography>
 
             <motion.div variants={varBounceIn}>
               <Box
                 component="img"
-                src="/static/illustrations/illustration_404.svg"
-                sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
+                src="/static/illustrations/St Patrick_S Flower Patterns.svg"
+                sx={{ height: 360, mx: 'auto', my: { xs: 5, sm: 10 } }}
               />
             </motion.div>
 
