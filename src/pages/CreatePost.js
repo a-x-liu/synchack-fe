@@ -28,6 +28,8 @@ import {
   TextField,
   ImageList
 } from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 // components
 import Page from '../components/Page';
 import Label from '../components/Label';
@@ -95,10 +97,11 @@ const TABLE_HEAD = [
 export default function User() {
   const classes = useStyles()
   const [thumbnail, setThumbnail] = useState('');
+  const [donos, setDonos] = useState(false);
   const [values, setValues] = React.useState({
     title: '',
     description: '',
-    amount: '0',
+    amount: '-1',
   });
 
   const uploadImg = (imageList, addUpdateIndex) => {
@@ -112,12 +115,29 @@ export default function User() {
   };
 
   async function sendPost () {
-    // axios.post('https://zorlvan-enterprise-backend.herokuapp.com/post/create', {
-    //   'image_url': thumbnail[0],
-    //   'account_id': 1,
-    //   'title': values.title,
-    //   'description': 
-    // })
+    const data = {
+      'image_url': thumbnail[0].data_url,
+      'account_id': 1,
+      'title': values.title,
+      'description': values.description,
+      'is_mission': donos,
+      'dollar_target': values.amount,
+      'current_dollar': 0,
+      'is_shared': 1,
+    }
+    console.log(data)
+
+    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/post/create/', data, {
+      headers: {
+        authorization: 'Token ' + localStorage.getItem('token')
+      }
+    }).then(function (response) {
+      console.log('here')
+      console.log(response)
+    }).catch(function (error) {
+      console.log('here2')
+      console.log(error)
+    })
   }
 
   return (
@@ -129,8 +149,9 @@ export default function User() {
           </Typography>
           <Button
             variant="contained"
-            component={RouterLink}
-            to="#"
+            // component={RouterLink}
+            // to="#"
+            onClick={sendPost}
             startIcon={<Icon icon={Send} />}
           >
             Confirm Post
@@ -154,19 +175,43 @@ export default function User() {
             onChange={handleChange('description')}
           />
 
-        <FormControl fullWidth variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-amount"
-            // value={values.amount}
-            // onChange={handleChange('amount')}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            labelWidth={60}
-            type='number'
-            onChange={handleChange('amount')}
+        {localStorage.getItem('is_org') == "true" ? 
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={donos}
+                onChange={() => {
+                  if (donos == false) setDonos(true)
+                  else setDonos(false)
+                }}
+                name="checkedB"
+                color="primary"
+              />
+            }
             style={{ marginBottom: '10px' }}
+            label="Include Support Target"
           />
-        </FormControl>
+          :
+          <div></div>
+        }
+
+        {donos == true ?
+          <FormControl fullWidth variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              // value={values.amount}
+              // onChange={handleChange('amount')}
+              startAdornment={<InputAdornment position="start">$</InputAdornment>}
+              labelWidth={60}
+              type='number'
+              onChange={handleChange('amount')}
+              style={{ marginBottom: '10px' }}
+              />
+          </FormControl>
+          :
+          <div></div>
+        }
           <ImgUpload>
             <ImageUploading
               value={thumbnail}
