@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
-import React from 'react'
+import React, { useEffect } from 'react'
 // material
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Button, Container, Stack, Typography, } from '@material-ui/core';
@@ -17,8 +17,11 @@ import Avatar from '@material-ui/core/Avatar';
 // components
 import Page from '../components/Page';
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/blog';
+import SharePostCard from 'src/components/_dashboard/blog/SharePostCard';
 //
 import POSTS from '../_mocks_/blog';
+import { useState } from 'react';
+import axios from 'axios'
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +47,17 @@ function QuickAccess() {
 
 export default function Blog() {
   const classes = useStyles();
+  const [posts, setPosts] = useState([])
+
+  useEffect(async () => {
+    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/post/all/')
+    .then(function (res) {
+      // console.log(res.data.results[0].time_created)
+      setPosts(res.data.results)
+    }).catch(function (err) {
+      console.log(err)
+    })
+  }, [])
 
   return (
     <Page title="Your Blog">
@@ -75,9 +89,14 @@ export default function Blog() {
           xs={12}
           md={7}
         >
-          {POSTS.map((post, index) => (
-            <BlogPostCard key={post.id} post={post} index={index} />
-          ))}
+          {posts.map((post, index) => {
+            console.log(post)
+            if (post.is_shared == 1) {
+              return(<BlogPostCard key={index} post={post} index={index} full={false}/>)
+            } else {
+              return(<SharePostCard key={index} post={post} index={index} full={false}/>)
+            }
+          })}
         </Grid>
         <Grid
           item
@@ -116,65 +135,3 @@ export default function Blog() {
     </Page>
   );
 }
-
-// export default function Blog() {
-//   return (
-//     <Page title="Dashboard: Blog | Minimal-UI">
-//       <Container style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
-//         <div style={{ width: '800px' }}>
-//           <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
-//             <Typography variant="h4" gutterBottom>
-//               Yeet
-//             </Typography>
-//             <BlogPostsSort options={SORT_OPTIONS} />
-//           </Stack>
-//           <Grid container
-//           direction="row"
-//           justifyContent="center"
-//           alignItems="flex-start"
-//           >
-//             {/* <Grid container spacing={3} sm={12} md={7} lg={7}
-//             direction="row"
-//             justifyContent="center"
-//             alignItems="center"
-//             > */}
-//               {POSTS.map((post, index) => (
-//                 <BlogPostCard key={post.id} post={post} index={index} />
-//               ))}
-//             {/* </Grid> */}
-//             {/* <Grid item spacing={3} sm={12} md={5} lg={5}
-//             alignItems="center"
-//             position= "sticky"
-//             top="0"
-//             >
-//               <div style={{ display: 'flex', direction:"row", justifyContent:"center", alignItems:"center" }}>
-//                 hello
-//                 <Button
-//                   variant="contained"
-//                   component={RouterLink}
-//                   to="#"
-//                   startIcon={<Icon icon={plusFill} />}
-//                   >
-//                   New Post
-//                 </Button>
-//               </div>
-//             </Grid> */}
-//           </Grid>
-//         </div>
-//         <div style={{display: 'flex', flexdirection:"row" }}>
-//             <div style={{ position: 'fixed', width: '300px', height: '500px',  backgroundColor: 'aqua'  }}>
-//               hello
-//               <Button
-//                 variant="contained"
-//                 component={RouterLink}
-//                 to="#"
-//                 startIcon={<Icon icon={plusFill} />}
-//                 >
-//                 New Post
-//               </Button>
-//             </div>
-//         </div>
-//       </Container>
-//     </Page>
-//   );
-// }
