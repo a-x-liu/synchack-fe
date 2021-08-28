@@ -27,6 +27,7 @@ import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 //
 import USERLIST from '../_mocks_/user';
 
@@ -67,7 +68,7 @@ function applySortFilter(array, comparator, query) {
     return a[1] - b[1];
   });
   if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (_user) => _user.first_name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
@@ -126,9 +127,9 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
-
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
+  // console.log(USERLIST);
+  const filteredUsers = applySortFilter(users, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
   
@@ -152,7 +153,7 @@ export default function User() {
   //     console.log(error);
   //   });
   // }
-
+  console.log(users);
   useEffect(async () => {
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/explore`, { 
       headers: { 
@@ -206,7 +207,7 @@ export default function User() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={users.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   // onSelectAllClick={handleSelectAllClick}
@@ -215,8 +216,11 @@ export default function User() {
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                      // const name = first_name + " " + last_name;
+                      console.log(row)
+                      // const { id, name, role, status, company, avatarUrl, isVerified } = row;
                       // const isItemSelected = selected.indexOf(name) !== -1;
+                      const { bio, email, first_name, is_org, last_name, pk, profile_pic, username } = row;
 
                       return (
                         <TableRow
@@ -237,28 +241,31 @@ export default function User() {
                             <RouterLink to={{
                               pathname: "/dashboard/profile",
                               state: {
-                                name: name
+                                name: first_name
                               }
-                            }}>
+                            }}
+                            style={{ textDecoration: "none" }}
+                            > 
                               <Stack direction="row" alignItems="center" spacing={2} style={{ marginLeft: "13px" }}>
-                                <Avatar alt={name} src={avatarUrl} />
+                                <Avatar alt={first_name} src={profile_pic} />
                                 <Typography variant="subtitle2" noWrap>
-                                  {name}
+                                  {first_name + " " + last_name}
+                                  {is_org ? <VerifiedUserIcon fontSize="small"/> : ""}
                                 </Typography>
                               </Stack>
                             </RouterLink>
                           </TableCell>
                           {/* <TableCell align="left">{company}</TableCell> */}
-                          <TableCell align="left">{role}</TableCell>
+                          <TableCell align="left">{is_org ? "Organisation" : "User" }</TableCell>
                           {/* <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell> */}
-                          <TableCell align="left">
+                          {/* <TableCell align="left">
                             <Label
                               variant="ghost"
                               color={(status === 'banned' && 'error') || 'success'}
                             >
                               {sentenceCase(status)}
                             </Label>
-                          </TableCell>
+                          </TableCell> */}
 
                           <TableCell align="right">
                             <UserMoreMenu />
@@ -288,7 +295,7 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={users.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
