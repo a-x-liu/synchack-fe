@@ -42,8 +42,8 @@ import {
   Box
 } from '@material-ui/core';
 import { Icon } from '@iconify/react';
-import Edit from '@iconify/icons-eva/edit-outline';
 
+import EditProfile from './EditProfile';
 // DashboardApp.propTypes = {
 //   userId: PropTypes.string
 // };
@@ -95,26 +95,14 @@ export default function DashboardApp() {
   //     console.log(error);
   //   });
   // }
-
+  const[profileData, setProfileData] = useState(0);
   return (
     <Page title={`${profile.username}'s profile`}>
       {/* <button onClick={profile}>Profile</button> */}
       
       <Container maxWidth="xl">
         {/* <Box sx={{ pb: 5 }}> */}
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>{profile.username}'s profile</Typography>
-          <span id="editProfile" style={{ display: "none" }}>
-            <Button
-              variant="contained"
-              component={RouterLink}
-              to="/dashboard/editProfile"
-              startIcon={<Icon icon={Edit} />} 
-            >
-              Edit Profile
-            </Button>
-          </span>
-        </Stack>
+        <EditProfile profile={profile} />
          
         {/* </Box>   */}
         
