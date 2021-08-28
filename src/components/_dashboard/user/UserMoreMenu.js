@@ -7,16 +7,20 @@ import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
 // material
 import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@material-ui/core';
 
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+
 // ----------------------------------------------------------------------
 
 export default function UserMoreMenu() {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-
+  // const isFriend = false;
   return (
     <>
-      <IconButton ref={ref} onClick={() => setIsOpen(true)}>
-        <Icon icon={moreVerticalFill} width={20} height={20} />
+      <IconButton ref={ref} onClick={() => setIsOpen(true)} 
+      // style={{ marginRight: '400px'}}
+      >
+        <PersonAddIcon />
       </IconButton>
 
       <Menu

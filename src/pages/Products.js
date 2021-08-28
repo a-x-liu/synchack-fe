@@ -1,5 +1,7 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import React from 'react';
+import axios from 'axios';
 // material
 import { Container, Stack, Typography } from '@material-ui/core';
 // components
@@ -17,7 +19,20 @@ import PRODUCTS from '../_mocks_/products';
 
 export default function EcommerceShop() {
   const [openFilter, setOpenFilter] = useState(false);
-
+  const [prod, setProd] = useState({});
+  React.useEffect(async () => {
+    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/account/explore', null, {
+      headers:{
+        'Authorization': `Token ${window.localStorage.getItem('token')}`
+      },
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, [])
   const formik = useFormik({
     initialValues: {
       gender: '',
@@ -47,10 +62,10 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Dashboard: Products | Minimal-UI">
+    <Page title="Explore organizations">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
+          Explore various organizations that accept donations, subscriptions and more!
         </Typography>
 
         <Stack
@@ -73,7 +88,6 @@ export default function EcommerceShop() {
         </Stack>
 
         <ProductList products={PRODUCTS} />
-        <ProductCartWidget />
       </Container>
     </Page>
   );

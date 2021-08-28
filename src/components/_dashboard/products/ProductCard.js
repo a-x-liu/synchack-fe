@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import React from 'react';
+import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Box, Card, Link, Typography, Stack } from '@material-ui/core';
@@ -26,11 +28,11 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
-  const { name, cover, price, colors, status, priceSale } = product;
+  const { name, cover, subscribers,description, colors, status } = product;
 
   return (
     <Card>
-      <Box sx={{ pt: '100%', position: 'relative' }}>
+      <Box sx={{ pt: '100%', position: 'relative'}}>
         {status && (
           <Label
             variant="filled"
@@ -50,14 +52,17 @@ export default function ShopProductCard({ product }) {
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Link to="#" color="inherit" underline="hover" component={RouterLink}>
-          <Typography variant="subtitle2" noWrap>
+        <Link to="/dashboard" color="inherit" underline="hover" component={RouterLink}>
+          <Typography variant="subtitle2" noWrap textAlign={'center'}>
             {name}
           </Typography>
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <ColorPreview colors={colors} />
+          <Typography variant="subtitle2" noWrap>
+            {description}
+          </Typography>
           <Typography variant="subtitle1">
             <Typography
               component="span"
@@ -67,10 +72,10 @@ export default function ShopProductCard({ product }) {
                 textDecoration: 'line-through'
               }}
             >
-              {priceSale && fCurrency(priceSale)}
             </Typography>
-            &nbsp;
-            {fCurrency(price)}
+            <Typography variant="subtitle2" noWrap>
+              No. of Subs: {subscribers}
+            </Typography>
           </Typography>
         </Stack>
       </Stack>
