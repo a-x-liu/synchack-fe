@@ -25,6 +25,7 @@ import Scrollbar from '../../Scrollbar';
 import ColorManyPicker from '../../ColorManyPicker';
 
 // ----------------------------------------------------------------------
+//ignore this file for now, don't have a great idea on how to filter the organizations.
 
 export const SORT_BY_OPTIONS = [
   { value: 'featured', label: 'Featured' },
@@ -72,14 +73,14 @@ export default function ShopFilterSidebar({
 
   return (
     <>
-      <Button
+      {/* <Button
         disableRipple
         color="inherit"
         endIcon={<Icon icon={roundFilterList} />}
         onClick={onOpenFilter}
       >
         Filters&nbsp;
-      </Button>
+      </Button> */}
 
       <FormikProvider value={formik}>
         <Form autoComplete="off" noValidate>

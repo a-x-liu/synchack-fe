@@ -6,6 +6,7 @@ import fileTextFill from '@iconify/icons-eva/file-text-fill';
 import lockFill from '@iconify/icons-eva/lock-fill';
 import personAddFill from '@iconify/icons-eva/person-add-fill';
 import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
+import globeFill from '@iconify/icons-eva/globe-2-fill';
 
 // ----------------------------------------------------------------------
 
@@ -13,8 +14,8 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
 const sidebarConfig = [
   {
-    title: 'dashboard',
-    path: '/dashboard/app',
+    title: 'profile',
+    path: '/dashboard/profile',
     icon: getIcon(pieChart2Fill)
   },
   {
@@ -23,9 +24,9 @@ const sidebarConfig = [
     icon: getIcon(peopleFill)
   },
   {
-    title: 'product',
-    path: '/dashboard/products',
-    icon: getIcon(shoppingBagFill)
+    title: 'explore',
+    path: '/dashboard/explore',
+    icon: getIcon(globeFill)
   },
   {
     title: 'blog',
@@ -46,6 +47,11 @@ const sidebarConfig = [
     title: 'Not found',
     path: '/404',
     icon: getIcon(alertTriangleFill)
+  },
+  {
+    title: 'Create Post',
+    path: '/dashboard/createpost',
+    icon: getIcon(lockFill)
   },
   {
     title: 'your mum',

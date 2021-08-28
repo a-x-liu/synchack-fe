@@ -1,4 +1,6 @@
 import * as Yup from 'yup';
+import React from 'react';
+import axios from 'axios';
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
@@ -24,13 +26,12 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    userName: Yup.string().email('Username must be a valid username').required('Username is required'),
     password: Yup.string().required('Password is required')
   });
-
   const formik = useFormik({
     initialValues: {
-      email: '',
+      userName: '',
       password: '',
       remember: true
     },
@@ -40,8 +41,30 @@ export default function LoginForm() {
     }
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  const login = async () => {
+    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/account/login', {
+      "username": getFieldProps('userName').value,
+      "password": getFieldProps('password').value
+    }, null)
+    .then(function (response) {
+      console.log(response);
+      window.localStorage.setItem('token', response.data.token);
+      window.localStorage.setItem('user_id', response.data.user_id);
+      window.localStorage.setItem('username', response.data.userid);
+      window.localStorage.setItem('is_org', response.data.is_org);
+      if(response.data.response === "Successful login!"){
+        navigate('/dashboard/blog')
+      } else {
+        navigate('/login')
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  
 
+  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
@@ -54,10 +77,10 @@ export default function LoginForm() {
             fullWidth
             autoComplete="username"
             type="email"
-            label="Email address"
-            {...getFieldProps('email')}
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
+            label="Username"
+            {...getFieldProps('userName')}
+            // error={Boolean(touched.userName && errors.userName)}
+            // helperText={touched.userName && errors.userName}
           />
 
           <TextField
@@ -85,10 +108,6 @@ export default function LoginForm() {
             control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
             label="Remember me"
           />
-
-          <Link component={RouterLink} variant="subtitle2" to="#">
-            Forgot password?
-          </Link>
         </Stack>
 
         <LoadingButton
@@ -97,6 +116,7 @@ export default function LoginForm() {
           type="submit"
           variant="contained"
           loading={isSubmitting}
+          onClick={login}
         >
           Login
         </LoadingButton>

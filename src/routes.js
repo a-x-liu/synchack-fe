@@ -11,6 +11,7 @@ import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
 import YourMum from './pages/YourMum';
+import CreatePost from './pages/CreatePost';
 
 // ----------------------------------------------------------------------
 
@@ -20,12 +21,13 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { path: '/', element: <Navigate to="/dashboard/app" replace /> },
-        { path: 'app', element: <DashboardApp /> },
+        { path: '/', element: <Navigate to="/dashboard/profile" replace /> },
+        { path: 'profile', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
-        { path: 'products', element: <Products /> },
+        { path: 'explore', element: <Products /> },
         { path: 'blog', element: <Blog /> },
-        { path: 'yourmum', element: <YourMum /> }
+        { path: 'yourmum', element: <YourMum /> },
+        { path: 'createpost', element: <CreatePost /> }
       ]
     },
     {
