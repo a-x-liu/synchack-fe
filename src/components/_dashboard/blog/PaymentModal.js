@@ -131,11 +131,11 @@ export default function PaymentModal({post}) {
       </Box>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Thanks for Your Support
+          Donation | PhilGreat by Zorlvan Enterprise
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            Any donation amount will go a long way to a good cause. Thank you for your generosity.
+            Thank you for your support. There are many in less fortunate situations than us. Any donation amount will go a long way to a good cause. Thank you again for your kind generosity.
           </Typography>
           <FormControl fullWidth variant="outlined" style={{ marginTop: '8px' }}>
             <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
