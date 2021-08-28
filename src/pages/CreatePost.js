@@ -33,7 +33,6 @@ import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
-import CreateTitle from '../components/_dashboard/createpost/CreateTitle';
 import USERLIST from '../_mocks_/user';
 import { styled } from '@material-ui/core/styles';
 import {
