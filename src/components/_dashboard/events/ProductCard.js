@@ -64,7 +64,6 @@ export default function EventCard({ event }) {
 
   return (
     <Card>
-      {console.log(event)}
       <Box sx={{ pt: '100%', position: 'relative'}}>
         <ProductImgStyle alt={event['description']} src={event['event_pic']} />
       </Box>
