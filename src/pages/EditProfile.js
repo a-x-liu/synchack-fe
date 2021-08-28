@@ -122,7 +122,7 @@ export default function EditProfile({ profile, isFinished }) {
   }
 
   return(
-    <Page title="User | Minimal-UI">
+    <Page title="Profile | PhilGreat">
       <Container>
         <Card style={{ display: 'flex', flexDirection: 'column', padding: '30px' }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>

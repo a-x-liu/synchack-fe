@@ -60,7 +60,7 @@ export default function Blog() {
   }, [])
 
   return (
-    <Page title="Dashboard: Blog | Minimal-UI">
+    <Page title="Blog | PhilGreat">
       <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '50px'}}>
         <Typography variant="h4">
