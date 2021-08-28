@@ -9,7 +9,6 @@ import { Menu, Button, MenuItem, Typography } from '@material-ui/core';
 
 const SORT_BY_OPTIONS = [
   { value: 'featured', label: 'Featured' },
-  { value: 'newest', label: 'Newest' },
   { value: 'subDesc', label: 'No. of subs: High-Low' },
   { value: 'subAsc', label: 'No. of subs: Low-High' }
 ];
