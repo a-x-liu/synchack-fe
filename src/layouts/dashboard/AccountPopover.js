@@ -53,7 +53,8 @@ export default function AccountPopover() {
     .then(function (response) {
       console.log(response);
       if(response.data === "Successfully Logged Out"){
-        navigate('/login')
+        navigate('/login');
+        window.localStorage.removeItem('token');
       } else {
         navigate('/dashboard/blog')
       }

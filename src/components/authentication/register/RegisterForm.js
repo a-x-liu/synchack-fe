@@ -104,9 +104,9 @@ export default function RegisterForm() {
       "email": getFieldProps("email").value,
       "username": getFieldProps("userName").value,
       "password":  getFieldProps("password").value,
-      "first_name": getFieldProps("firstName").value,
-      "last_name": getFieldProps("lastName").value,
-      "profile_pic": thumbnail[0].data_url,
+      "first_name": (isOrg ? "" : getFieldProps("firstName").value),
+      "last_name": (isOrg ? "" : getFieldProps("lastName").value),
+      "profile_pic": "",
       "is_org": isOrg,
       "bio": getFieldProps("bio").value
     }, null)
@@ -205,7 +205,7 @@ export default function RegisterForm() {
             is organisation
           </div>
 
-          {/* <div>
+          <div>
             <ImageUploading
               multiple
               value={thumbnail}
@@ -243,7 +243,7 @@ export default function RegisterForm() {
                 </div>
               )}
             </ImageUploading>
-          </div> */}
+          </div>
           <LoadingButton
             fullWidth
             size="large"
