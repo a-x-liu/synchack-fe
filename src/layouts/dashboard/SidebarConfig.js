@@ -7,6 +7,7 @@ import lockFill from '@iconify/icons-eva/lock-fill';
 import personAddFill from '@iconify/icons-eva/person-add-fill';
 import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
 import globeFill from '@iconify/icons-eva/globe-2-fill';
+import square from '@iconify/icons-eva/plus-square-outline';
 
 // ----------------------------------------------------------------------
 
@@ -29,14 +30,14 @@ const sidebarConfig = [
     icon: getIcon(globeFill)
   },
   {
-    title: 'user',
+    title: 'users',
     path: '/dashboard/user',
     icon: getIcon(peopleFill)
   },
   {
     title: 'Create Post',
     path: '/dashboard/createpost',
-    icon: getIcon(lockFill)
+    icon: getIcon(square)
   },
   
   // {
@@ -55,11 +56,11 @@ const sidebarConfig = [
   //   icon: getIcon(alertTriangleFill)
   // },
   
-  {
-    title: 'your mum',
-    path: '/dashboard/yourmum',
-    icon: getIcon(lockFill)
-  }
+  // {
+  //   title: 'your mum',
+  //   path: '/dashboard/yourmum',
+  //   icon: getIcon(lockFill)
+  // }
 ];
 
 export default sidebarConfig;

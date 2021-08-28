@@ -49,7 +49,7 @@ export default function Profile({ profile }) {
   
   // console.log(params);
   const info = profile;
-  console.log(info);
+  // console.log(info);
   const name = info.first_name + " " + info.last_name;
   let profile_pic = ""
   if (info.profile_pic !== null) {

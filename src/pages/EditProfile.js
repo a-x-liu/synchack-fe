@@ -77,6 +77,7 @@ export default function EditProfile() {
     setThumbnail(imageList);
     console.log(imageList)
   };
+  
   return(
     <Page title="User | Minimal-UI">
       <Container>
