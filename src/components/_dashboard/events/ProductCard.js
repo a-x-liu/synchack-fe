@@ -94,23 +94,23 @@ export default function EventCard({ event }) {
             <Typography variant="subtitle2" noWrap>
               ATTENDEES: {event['participant_count']}
             </Typography>
-            <span id={'sub'+event['pk']}>
-              <Button
-                variant="contained"
-                onClick={going}
-              >
-                GOING
-              </Button>
-              </span>
-              <span style={{display: 'none'}}
-                id={'unsub'+event['pk']}>
-                <Button
-                  variant="contained"
-                  onClick={cancel}
-                >
-                CANCEL
-              </Button>
-              </span>
+//             <span id={'sub'+event['pk']}>
+//               <Button
+//                 variant="contained"
+//                 onClick={going}
+//               >
+//                 GOING
+//               </Button>
+//               </span>
+//               <span style={{display: 'none'}}
+//                 id={'unsub'+event['pk']}>
+//                 <Button
+//                   variant="contained"
+//                   onClick={cancel}
+//                 >
+//                 CANCEL
+//               </Button>
+//               </span>
         </Stack>
       </Stack>
     </Card>
