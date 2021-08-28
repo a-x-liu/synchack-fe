@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import CardHeader from '@material-ui/core/CardHeader';
 import axios from 'axios'
 import BlogPostCard from './BlogPostCard';
-
+import trash from '@iconify/icons-eva/trash-2-outline';
 // ----------------------------------------------------------------------
 
 const CardMediaStyle = styled('div')({
@@ -69,7 +69,7 @@ SharePostCard.propTypes = {
 
 
 export default function SharePostCard({ post, index, full }) {
-  const { pk, image_url, title, username, time_created, description, current_dollar, dollar_target, is_mission } = post;
+  const { profile_pic, pk, image_url, title, username, time_created, description, current_dollar, dollar_target, is_mission, is_shared } = post;
   const { size } = full
   const navigate = useNavigate();
 
@@ -84,15 +84,13 @@ export default function SharePostCard({ post, index, full }) {
       <Card key={index} sx={{ marginBottom: '20px', width: "100%", maxWidth: '650px' }}>
         <CardHeader
             avatar={
-            <Avatar aria-label="recipe">
-                R
-            </Avatar>
+            <Avatar aria-label="recipe" src={profile_pic}/>
             }
             title={username}
             subheader='has shared a post'
         />
         <CardContent sx={{pt: 4,}}>
-            <BlogPostCard key={index} post={post} index={index} full={false}/>
+          <BlogPostCard key={index} post={post.original_post} index={index} full={false}/>
         </CardContent>
       </Card>
     // </Grid>

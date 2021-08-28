@@ -18,6 +18,7 @@ import PaymentModal from './PaymentModal';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import SnackBar from './SnackBar';
 
 // ----------------------------------------------------------------------
 
@@ -81,9 +82,10 @@ function LinearProgressWithLabel(props) {
 }
 
 export default function BlogPostCard({ post, index, full }) {
-  const { pk, image_url, title, username, time_created, description, current_dollar, dollar_target, is_mission } = post;
+  const { profile_pic, pk, image_url, title, username, time_created, description, current_dollar, dollar_target, is_mission } = post;
   const { size } = full
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
   // const latestPostLarge = index === 0;
   // const latestPost = index === 1 || index === 2;
 
@@ -109,14 +111,17 @@ export default function BlogPostCard({ post, index, full }) {
       }
     }).then(function (response) {
       console.log(response)
+      if (response.status == 200) setOpen(true)
     }).catch(function (error) {
       console.log(error)
     })
   }
-
+  
   return (
     // <Grid item xs={12} style={{ paddingBottom: '20px' }}>
-      <Card key={index} sx={{ marginBottom: '20px', width: "100%", maxWidth: '650px' }}>
+    <div key={index} style={{ marginBottom: '20px', width: "100%", maxWidth: '650px' }}>
+    <SnackBar open={open} setOpen={setOpen} />
+    <Card>
         <CardMediaStyle>
           <SvgIconStyle
             color="paper"
@@ -131,12 +136,12 @@ export default function BlogPostCard({ post, index, full }) {
           />
           <AvatarStyle
             // alt={author.name}
-            // src={author.avatarUrl}
+            src={profile_pic}
           />
 
           <CoverImgStyle alt={title} src={image_url} />
         </CardMediaStyle>
-
+        
         <CardContent sx={{pt: 4,}}>
           <TitleStyle
             to= {"/dashboard/viewpost/" + pk}
@@ -273,6 +278,6 @@ export default function BlogPostCard({ post, index, full }) {
 
         </CardContent>
       </Card>
-    // </Grid>
+      </div>
   );
 }

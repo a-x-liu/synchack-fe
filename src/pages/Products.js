@@ -64,7 +64,7 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Explore Organizations">
+    <Page title="Explore organisations | Philgreat">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
           Explore various organizations that accept donations, subscriptions and more!
