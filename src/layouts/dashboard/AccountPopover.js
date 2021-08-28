@@ -113,12 +113,12 @@ export default function AccountPopover() {
         <Divider sx={{ my: 1 }} />
 
         <RouterLink to={{
-          pathname: "/dashboard/profile",
-          state: {
-            // userId: window.localStorage.getItem('user_id')
-            id: "test"
-            // "id": 1
-          },
+          pathname: `/dashboard/profile/${window.localStorage.getItem('user_id')}`,
+          // state: {
+          //   // userId: window.localStorage.getItem('user_id')
+          //   id: "test"
+          //   // "id": 1
+          // },
         }}>
           <MenuItem
               key={"Profile"}

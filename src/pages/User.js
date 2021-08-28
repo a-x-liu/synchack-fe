@@ -161,7 +161,7 @@ export default function User() {
       }
     })
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
       setUsers(response.data.results)
       // window.localStorage.setItem('token', response.data.token);
       // window.localStorage.setItem('user_id', response.data.user_id);
@@ -217,7 +217,7 @@ export default function User() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                       // const name = first_name + " " + last_name;
-                      console.log(row)
+                      // console.log(row)
                       // const { id, name, role, status, company, avatarUrl, isVerified } = row;
                       // const isItemSelected = selected.indexOf(name) !== -1;
                       const { bio, email, first_name, is_org, last_name, pk, profile_pic, username } = row;
@@ -239,10 +239,7 @@ export default function User() {
                           </TableCell> */}
                           <TableCell component="th" scope="row" padding="none">
                             <RouterLink to={{
-                              pathname: "/dashboard/profile",
-                              state: {
-                                name: first_name
-                              }
+                              pathname: `/dashboard/profile/${pk}`,
                             }}
                             style={{ textDecoration: "none" }}
                             > 
@@ -250,7 +247,7 @@ export default function User() {
                                 <Avatar alt={first_name} src={profile_pic} />
                                 <Typography variant="subtitle2" noWrap>
                                   {first_name + " " + last_name}
-                                  {is_org ? <VerifiedUserIcon fontSize="small" style={{ marginTop: "10px" }}/> : ""}
+                                  {is_org ? <span style={{ position: "fixed", marginTop: "1px" }}><VerifiedUserIcon fontSize="small" /></span> : ""}
                                 </Typography>
                               </Stack>
                             </RouterLink>
