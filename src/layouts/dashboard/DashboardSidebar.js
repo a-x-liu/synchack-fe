@@ -71,10 +71,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Avatar src={window.localStorage.getItem('profile_pic')} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {window.localStorage.getItem('first') + window.localStorage.getItem('last')}
+                {window.localStorage.getItem('first') ? (window.localStorage.getItem('first') + " " + window.localStorage.getItem('last')) : window.localStorage.getItem('username')}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+              {window.localStorage.getItem('first') ? "User" : "Organisation"}
               </Typography>
             </Box>
           </AccountStyle>

@@ -12,6 +12,8 @@ import User from './pages/User';
 import NotFound from './pages/Page404';
 import CreatePost from './pages/CreatePost';
 import FullPost from './pages/FullPost';
+import Events from './pages/Events';
+import ThankYou from './pages/ThankYou';
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +29,9 @@ export default function Router() {
         { path: 'explore', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         { path: 'createpost', element: <CreatePost /> },
-        { path: 'viewpost/:postid', element: <FullPost />}
+        { path: 'viewpost/:postid', element: <FullPost />},
+        { path: 'events', element: <Events />},
+        { path: 'thankyou', element: <ThankYou />}
       ]
     },
     {
