@@ -227,7 +227,7 @@ export default function User() {
                       // const { id, name, role, status, company, avatarUrl, isVerified } = row;
                       // const isItemSelected = selected.indexOf(name) !== -1;
                       const { bio, email, first_name, is_org, last_name, pk, profile_pic, username } = row;
-
+                        
                       return (
                         <TableRow
                           // hover

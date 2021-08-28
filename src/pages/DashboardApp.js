@@ -226,9 +226,12 @@ export default function DashboardApp() {
             md={7}
           >
             {postData.map((post, index) => {
-              if (post.is_shared === 1) {
+              if (post === undefined) return(<div/>)
+              else if (post.is_shared === 1) {
+                console.log(post)
                 return(<BlogPostCard key={index} post={post} index={index} full={false}/>)
               } else {
+                console.log(post)
                 return(<SharePostCard key={index} post={post} index={index} full={false}/>)
               }
             })}

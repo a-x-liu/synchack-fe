@@ -74,39 +74,30 @@ export default function Profile({ profile }) {
     .catch(function (error) {
       console.log(error);
     });
+    // const info = profile;
+    // // console.log(info);
+    // const name = info.first_name + " " + info.last_name;
+    // let profile_pic = ""
+    // if (info.profile_pic !== null) {
+    //   profile_pic = iprofilefo.profile_pic;
+    // } 
   }, [])
-  const info = profile;
-  // console.log(info);
-  const name = info.first_name + " " + info.last_name;
-  let profile_pic = ""
-  if (info.profile_pic !== null) {
-    profile_pic = info.profile_pic;
-  } 
+ 
   const classes = useStyles();
   return(
     <div>
       <div style={{ width: "400px", margin: "auto", display: "flex", alignItems: "center", flexDirection: "column" }}>
-        <Avatar alt={name} src={profile_pic} className={classes.large} />
-        <h1>{info.username}</h1>
-        <h5>{name}</h5>
+        <Avatar src={profile.profile_pic} className={classes.large} />
+        <h1>{profile.username}</h1>
+        <h5>{profile.name}</h5>
       </div>
-      {/* <div style={{ 
-        display: "flex",
-        position: "absolute",
-        width: "400px", 
-        marginLeft: "0px",
-        padding: "10px",
-        backgroundColor: "#D4EBD7",
-        borderRadius: "10px"
-        }} >{info.bio}
-        </div> */}
         <Card style={{ position: 'absolute', width: "400px", marginLeft: '10px' }}>
           <CardContent>
             <Typography variant="h6">
               Bio
             </Typography>
             <span style={{ overflowWrap: "break-word" }}>
-              {info.bio}
+              {profile.bio}
             </span>
               
             {/* <Typography variant="body2" component="p">

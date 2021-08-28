@@ -82,10 +82,14 @@ function LinearProgressWithLabel(props) {
 }
 
 export default function BlogPostCard({ post, index, full }) {
-  const { profile_pic, pk, image_url, title, username, time_created, description, current_dollar, dollar_target, is_mission } = post;
-  const { size } = full
+  console.log(post + " " + index)
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  // if (post === undefined) return(<div></div>);
+
+  const { profile_pic, pk, image_url, title, username, time_created, description, current_dollar, dollar_target, is_mission } = post;
+  // const { size } = full
+  
   // const latestPostLarge = index === 0;
   // const latestPost = index === 1 || index === 2;
 
