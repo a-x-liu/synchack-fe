@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import axios from 'axios'
+import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 // material
@@ -31,7 +32,10 @@ DonationCard.propTypes = {
 };
 
 export default function DonationCard({ don }) {
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const { pk, post_id_to, title, amount, start_date, is_recurring, occurence,times_donated } = don;
   
   const edit = async () => {
@@ -77,36 +81,40 @@ export default function DonationCard({ don }) {
 
 
   return (
-    <Card>
-      <Typography variant="subtitle2" noWrap textAlign={'center'}>
-        To {title},
-      </Typography>
-      <Typography variant="subtitle2" noWrap textAlign={'center'}>
-        I started donating from {start_date}
-      </Typography>
-      <Typography variant="subtitle2" noWrap textAlign={'center'}>
-        {amount} Dollars!
-      </Typography> 
-      <Typography variant="subtitle2" noWrap textAlign={'center'}>
-        {times_donated} many times,
-      </Typography>
-      <Typography variant="subtitle2" noWrap textAlign={'center'}>
-        Every {occurence} days.
-      </Typography>
-      <Button
-              variant="contained"
-              onClick={edit}
-              startIcon={<Icon icon={Edit} />}
-            >
-              Edit my donation.
-       </Button>
-       <Button
-              variant="contained"
-              onClick={del}
-              startIcon={<Icon icon={Delete} />}
-            >
-              Stop donating :(
-       </Button>
-    </Card>
+    <div>
+      <Card>
+        <Typography variant="subtitle2" noWrap textAlign={'center'}>
+          To {title},
+        </Typography>
+        <Typography variant="subtitle2" noWrap textAlign={'center'}>
+          I started donating from {start_date}
+        </Typography>
+        <Typography variant="subtitle2" noWrap textAlign={'center'}>
+          {amount} Dollars!
+        </Typography> 
+        <Typography variant="subtitle2" noWrap textAlign={'center'}>
+          {times_donated} many times,
+        </Typography>
+        <Typography variant="subtitle2" noWrap textAlign={'center'}>
+          Every {occurence} days.
+        </Typography>
+        <Button
+                variant="contained"
+                onClick={edit}
+                startIcon={<Icon icon={Edit} />}
+              >
+                Edit my donation.
+        </Button>
+        <Button
+                variant="contained"
+                onClick={del}
+                startIcon={<Icon icon={Delete} />}
+              >
+                Stop donating :(
+        </Button>
+      </Card>
+      
+
+    </div>
   );
 }
