@@ -12,6 +12,7 @@ import User from './pages/User';
 import NotFound from './pages/Page404';
 import YourMum from './pages/YourMum';
 import CreatePost from './pages/CreatePost';
+import FullPost from './pages/FullPost';
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +28,8 @@ export default function Router() {
         { path: 'explore', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         { path: 'yourmum', element: <YourMum /> },
-        { path: 'createpost', element: <CreatePost /> }
+        { path: 'createpost', element: <CreatePost /> },
+        { path: 'viewpost/:postid', element: <FullPost />}
       ]
     },
     {
