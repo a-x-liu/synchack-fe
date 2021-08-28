@@ -1,9 +1,12 @@
 import faker from 'faker';
 import { sample } from 'lodash';
+import React from 'react';
+import axios from 'axios';
 // utils
 import { mockImgProduct } from '../utils/mockImages';
 
 // ----------------------------------------------------------------------
+
 
 const PRODUCT_NAME = [
   'Jin',
@@ -31,7 +34,6 @@ const PRODUCT_COLOR = [
   '#000000',
   '#000000'
 ];
-
 // ----------------------------------------------------------------------
 
 const products = [...Array(24)].map((_, index) => {

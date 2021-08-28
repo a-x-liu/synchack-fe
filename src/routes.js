@@ -11,6 +11,7 @@ import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
 import YourMum from './pages/YourMum';
+import CreatePost from './pages/CreatePost';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ export default function Router() {
         { path: 'explore', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         { path: 'yourmum', element: <YourMum /> },
+        { path: 'createpost', element: <CreatePost /> }
       ]
     },
     {

@@ -49,6 +49,11 @@ const sidebarConfig = [
     icon: getIcon(alertTriangleFill)
   },
   {
+    title: 'Create Post',
+    path: '/dashboard/createpost',
+    icon: getIcon(lockFill)
+  },
+  {
     title: 'your mum',
     path: '/dashboard/yourmum',
     icon: getIcon(lockFill)
