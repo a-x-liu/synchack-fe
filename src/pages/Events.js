@@ -1,4 +1,3 @@
-import { useFormik } from 'formik';
 import { useState } from 'react';
 import React from 'react';
 import axios from 'axios';
@@ -8,7 +7,7 @@ import { Container, Stack, Typography } from '@material-ui/core';
 import Page from '../components/Page';
 import {
   ProductSort,
-  ProductList,
+  EventList,
   ProductFilterSidebar
 } from '../components/_dashboard/events';
 //
@@ -16,51 +15,22 @@ import {
 // ----------------------------------------------------------------------
 
 export default function Events() {
-  const [openFilter, setOpenFilter] = useState(false);
-  const [prod, setProd] = useState([]);
+  const [events, setEvents] = useState([]);
   React.useEffect(async () => {
-    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/account/explore', {
+    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/event/all/', {
       headers:{
         'Authorization': `Token ${window.localStorage.getItem('token')}`
       },
     })
     .then(function (response) {
       console.log(response);
-      setProd(response.data.results);
-      console.log(prod);
+      console.log(response.data.results);
+      setEvents(response.data.results);
     })
     .catch(function (error) {
       console.log(error);
     });
   }, [])
-
-  const formik = useFormik({
-    initialValues: {
-      gender: '',
-      category: '',
-      colors: '',
-      priceRange: '',
-      rating: ''
-    },
-    onSubmit: () => {
-      setOpenFilter(false);
-    }
-  });
-
-  const { resetForm, handleSubmit } = formik;
-
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
-
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
-
-  const handleResetFilter = () => {
-    handleSubmit();
-    resetForm();
-  };
 
   return (
     <Page title="Events">
@@ -79,7 +49,7 @@ export default function Events() {
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
           </Stack>
         </Stack>
-        <ProductList products={prod} />
+        <EventList events={events} />
       </Container>
     </Page>
   );
