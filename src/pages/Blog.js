@@ -46,7 +46,7 @@ export default function Blog() {
   const classes = useStyles();
 
   return (
-    <Page title="Dashboard: Blog | Minimal-UI">
+    <Page title="Your Blog">
       <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '50px'}}>
         <Typography variant="h4">
