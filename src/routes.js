@@ -12,6 +12,7 @@ import User from './pages/User';
 import NotFound from './pages/Page404';
 import YourMum from './pages/YourMum';
 import CreatePost from './pages/CreatePost';
+import EditProfile from './pages/EditProfile';
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +28,8 @@ export default function Router() {
         { path: 'explore', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         { path: 'yourmum', element: <YourMum /> },
-        { path: 'createpost', element: <CreatePost /> }
+        { path: 'createpost', element: <CreatePost /> },
+        { path: 'editProfile', element: <EditProfile /> }
       ]
     },
     {
@@ -37,11 +39,10 @@ export default function Router() {
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
         { path: '404', element: <NotFound /> },
-        { path: '/', element: <Navigate to="/dashboard" /> },
-        { path: '*', element: <Navigate to="/404" /> }
+        { path: '*', element: <Navigate to="/404" /> },
+        { path: '/', element: <Navigate to="/login" /> }
       ]
     },
-
     { path: '*', element: <Navigate to="/404" replace /> }
   ]);
 }

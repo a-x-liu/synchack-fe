@@ -1,5 +1,5 @@
 // material
-import { Box, Grid, Container, Typography } from '@material-ui/core';
+// import { Box, Grid, Container, Typography } from '@material-ui/core';
 // components
 import Page from '../components/Page';
 import {
@@ -20,9 +20,29 @@ import {
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 // import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
-import { useParams } from "react-router-dom";
+import { useLocation, useParams, Link as RouterLink } from 'react-router-dom';
+// import {  } from "react-router-dom";
 // ----------------------------------------------------------------------
+import {
+  Card,
+  Table,
+  Stack,
+  Avatar,
+  Button,
+  Checkbox,
+  TableRow,
+  TableBody,
+  TableCell,
+  Container,
+  Typography,
+  TableContainer,
+  TablePagination,
+  TextField,
+  ImageList,
+  Box
+} from '@material-ui/core';
+import { Icon } from '@iconify/react';
+import Edit from '@iconify/icons-eva/edit-outline';
 
 // DashboardApp.propTypes = {
 //   userId: PropTypes.string
@@ -31,9 +51,15 @@ import { useParams } from "react-router-dom";
 
 export default function DashboardApp() {
   const params = useParams();
+  const edit = document.getElementById("editProfile");
+  if (edit !== null) {
+    if (params.userId === window.localStorage.getItem('userId')) edit.style.display = "none";
+    else edit.style.display = "block";
+  }
+  
   // console.log(params)
-  const location = useLocation();
-  if (location !== null) console.log(location)
+  // const location = useLocation();
+  // if (location !== null) console.log(location)
   // console.log(userId)
   const [profile, setProfile] = useState({});
 
@@ -71,15 +97,27 @@ export default function DashboardApp() {
   // }
 
   return (
-    <Page title="Dashboard | Minimal-UI">
+    <Page title={`${profile.username}'s profile`}>
       {/* <button onClick={profile}>Profile</button> */}
       
       <Container maxWidth="xl">
-        <Box sx={{ pb: 5 }}>
-          <Typography variant="h4">Hi, this is {profile.username}'s profile</Typography>
-        </Box>  
-
-
+        {/* <Box sx={{ pb: 5 }}> */}
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+          <Typography variant="h4" gutterBottom>{profile.username}'s profile</Typography>
+          <span id="editProfile" style={{ display: "none" }}>
+            <Button
+              variant="contained"
+              component={RouterLink}
+              to="/dashboard/editProfile"
+              startIcon={<Icon icon={Edit} />} 
+            >
+              Edit Profile
+            </Button>
+          </span>
+        </Stack>
+         
+        {/* </Box>   */}
+        
         <Profile profile={profile}/>
         {/* <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
