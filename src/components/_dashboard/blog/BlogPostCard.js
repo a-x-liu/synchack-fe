@@ -141,7 +141,7 @@ export default function BlogPostCard({ post, index, full }) {
 
           <CoverImgStyle alt={title} src={image_url} />
         </CardMediaStyle>
-
+        
         <CardContent sx={{pt: 4,}}>
           <TitleStyle
             to= {"/dashboard/viewpost/" + pk}

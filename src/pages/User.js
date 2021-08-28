@@ -183,11 +183,11 @@ export default function User() {
   },[]);
 
   return (
-    <Page title="Search Users">
+    <Page title="Search Users | PhilGreat">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Search User
+            Search Users
           </Typography>
           {/* <Button
             variant="contained"
