@@ -88,9 +88,21 @@ export default function ShopProductCard({ product }) {
     });
   }
 
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  let colour = "";
+  if (profile_pic !== null) colour = getRandomColor();
+
   return (
     <Card>
-      <Box sx={{ pt: '100%', position: 'relative'}}>
+      <Box sx={{ pt: '100%', position: 'relative'}} style={{ backgroundColor: colour }}>
         {/* {status && (
           <Label
             variant="filled"
@@ -106,7 +118,8 @@ export default function ShopProductCard({ product }) {
             {status}
           </Label>
         )} */}
-        <ProductImgStyle alt={first_name} src={profile_pic} />
+        {profile_pic ? <ProductImgStyle alt={first_name} src={profile_pic} /> : ""}
+       
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
