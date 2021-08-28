@@ -205,7 +205,7 @@ export default function RegisterForm() {
             is organisation
           </div>
 
-          {/* <div>
+          <div>
             <ImageUploading
               multiple
               value={thumbnail}
@@ -243,7 +243,7 @@ export default function RegisterForm() {
                 </div>
               )}
             </ImageUploading>
-          </div> */}
+          </div>
           <LoadingButton
             fullWidth
             size="large"
