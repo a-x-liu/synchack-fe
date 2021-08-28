@@ -19,33 +19,39 @@ import {
 } from '../components/_dashboard/app';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 // ----------------------------------------------------------------------
 
-DashboardApp.propTypes = {
-  userId: PropTypes.string
-};
+// DashboardApp.propTypes = {
+//   userId: PropTypes.string
+// };
 
 
-export default function DashboardApp({ userId }) {
-  console.log(userId)
+export default function DashboardApp() {
+  const params = useParams();
+  // console.log(params)
+  const location = useLocation();
+  if (location !== null) console.log(location)
+  // console.log(userId)
   const [profile, setProfile] = useState({});
 
-  // useEffect(async () => {
-  //   axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${window.localStorage.getItem('user_id')}`, 
-  //   { 
-  //     headers: { 
-  //       Authorization: "Token " + window.localStorage.getItem('token'),
-  //     }
-  //   })
-  //   .then(function (response) {
-  //     // console.log(response);
-  //     setProfile(response.data);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // }, [])
+  useEffect(async () => {
+    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${params.userId}`, 
+    { 
+      headers: { 
+        Authorization: "Token " + window.localStorage.getItem('token'),
+      }
+    })
+    .then(function (response) {
+      // console.log(response);
+      setProfile(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, [params])
   
 
 

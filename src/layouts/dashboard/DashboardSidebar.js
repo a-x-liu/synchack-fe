@@ -63,7 +63,9 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to="/dashboard/blog">
+        <Link underline="none" component={RouterLink} to={{
+          pathname: `/dashboard/profile/${window.localStorage.getItem('user_id')}`,
+        }} >
           <AccountStyle>
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>

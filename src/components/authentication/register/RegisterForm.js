@@ -37,9 +37,16 @@ export default function RegisterForm() {
 
   const handleChange = () => {
     setIsOrg(current => !current);
-    const personalNames = document.getElementById("personalName")
-    if (isOrg) personalNames.style.display = "block";
-    else personalNames.style.display = "none"; 
+    const personalNames = document.getElementById("personalName");
+    const bio = document.getElementById("bioField");
+    if (isOrg) {
+      personalNames.style.display = "block";
+      bio.style.display = "none";
+    } 
+    else {
+      personalNames.style.display = "none"; 
+      bio.style.display = "block";
+    }
   };
 
   const RegisterSchema = Yup.object().shape({
@@ -180,23 +187,25 @@ export default function RegisterForm() {
             error={Boolean(touched.password && errors.password)}
             helperText={touched.password && errors.password}
           />
-          <TextField
-            fullWidth
-            // autoComplete="username"
-            // type="email"
-            label="Bio"
-            multiline
-            rows={4}
-            {...getFieldProps('bio')}
-            // error={Boolean(touched.email && errors.email)}
-            // helperText={touched.email && errors.email}
-          />
+          <div id="bioField" style={{ display: "none" }}>
+            <TextField
+              fullWidth
+              // autoComplete="username"
+              // type="email"
+              label="Bio"
+              multiline
+              rows={4}
+              {...getFieldProps('bio')}
+              // error={Boolean(touched.email && errors.email)}
+              // helperText={touched.email && errors.email}
+            />
+          </div>
           <div style={{ marginLeft: "-10px"}}>
             <GreenCheckbox checked={isOrg} onChange={() => handleChange() } name="isOrg" />
             is organisation
           </div>
 
-          <div>
+          {/* <div>
             <ImageUploading
               multiple
               value={thumbnail}
@@ -234,7 +243,7 @@ export default function RegisterForm() {
                 </div>
               )}
             </ImageUploading>
-          </div>
+          </div> */}
           <LoadingButton
             fullWidth
             size="large"
