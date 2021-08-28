@@ -73,7 +73,7 @@ export default function Blog() {
         <Button
           variant="contained"
           component={RouterLink}
-          to="#"
+          to="/dashboard/createpost"
           startIcon={<Icon icon={plusFill} />}
           >
           New Post
@@ -118,9 +118,7 @@ export default function Blog() {
               <List dense={true}>
                 <ListItem style={{paddingLeft: '0px', paddingTop: '0px'}}>
                   <ListItemAvatar>
-                    <Avatar>
-                      {/* <FolderIcon /> */}
-                    </Avatar>
+                    <Avatar />
                   </ListItemAvatar>
                   <ListItemText
                     primary="Single-line item"

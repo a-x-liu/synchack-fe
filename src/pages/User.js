@@ -252,8 +252,8 @@ export default function User() {
                               <Stack direction="row" alignItems="center" spacing={2} style={{ marginLeft: "13px" }}>
                                 <Avatar alt={first_name} src={profile_pic} />
                                 <Typography variant="subtitle2" noWrap>
-                                  {first_name + " " + last_name}
-                                  {is_org ? <span style={{ position: "fixed", marginTop: "1px" }}><VerifiedUserIcon fontSize="small" /></span> : ""}
+                                  {is_org ? username : first_name + " " + last_name}
+                                  {is_org ? <span style={{ position: "absolute", marginTop: "1px" }}><VerifiedUserIcon fontSize="small" /></span> : ""}
                                 </Typography>
                               </Stack>
                             </RouterLink>

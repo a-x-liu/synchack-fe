@@ -1,50 +1,36 @@
-import { useFormik } from 'formik';
 import { useState } from 'react';
+import React from 'react';
+import axios from 'axios';
 // material
 import { Container, Stack, Typography } from '@material-ui/core';
 // components
 import Page from '../components/Page';
 import {
   ProductSort,
-  ProductList,
-  ProductCartWidget,
+  EventList,
   ProductFilterSidebar
-} from '../components/_dashboard/products';
+} from '../components/_dashboard/events';
 //
-import products from '../_mocks_/products';
 
 // ----------------------------------------------------------------------
 
 export default function Events() {
-  const [openFilter, setOpenFilter] = useState(false);
-
-  const formik = useFormik({
-    initialValues: {
-      gender: '',
-      category: '',
-      colors: '',
-      priceRange: '',
-      rating: ''
-    },
-    onSubmit: () => {
-      setOpenFilter(false);
-    }
-  });
-
-  const { resetForm, handleSubmit } = formik;
-
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
-
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
-
-  const handleResetFilter = () => {
-    handleSubmit();
-    resetForm();
-  };
+  const [events, setEvents] = useState([]);
+  React.useEffect(async () => {
+    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/event/all/', {
+      headers:{
+        'Authorization': `Token ${window.localStorage.getItem('token')}`
+      },
+    })
+    .then(function (response) {
+      console.log(response);
+      console.log(response.data.results);
+      setEvents(response.data.results);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, [])
 
   return (
     <Page title="Events">
@@ -61,18 +47,9 @@ export default function Events() {
           sx={{ mb: 5 }}
         >
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
-              formik={formik}
-              isOpenFilter={openFilter}
-              onResetFilter={handleResetFilter}
-              onOpenFilter={handleOpenFilter}
-              onCloseFilter={handleCloseFilter}
-            />
-            {/*<ProductSort />*/}
           </Stack>
         </Stack>
-        {console.log(products)}
-        <ProductList products={products} />
+        <EventList events={events} />
       </Container>
     </Page>
   );
