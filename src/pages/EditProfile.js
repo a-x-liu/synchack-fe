@@ -107,11 +107,11 @@ export default function EditProfile() {
               onChange={handleChange('title')}
             />
           </Stack>
-          <SearchStyle
+          {/* <SearchStyle
             placeholder="User name"
             style={{ marginBottom: '10px' }}
             onChange={handleChange('title')}
-          />
+          /> */}
           <TextField
             id="outlined-multiline-static"
             label="Password"
