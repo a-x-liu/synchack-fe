@@ -48,8 +48,9 @@ export default function LoginForm() {
     }, null)
     .then(function (response) {
       console.log(response);
-      window.localStorage.setItem('token', response.data.token)
-      if(response.data.response == "Successful login!"){
+      window.localStorage.setItem('token', response.data.token);
+      window.localStorage.setItem('user_id', response.data.user_id);
+      if(response.data.response === "Successful login!"){
         navigate('/dashboard/blog')
       } else {
         navigate('/login')
