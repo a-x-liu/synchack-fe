@@ -43,7 +43,7 @@ import {
 } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import Edit from '@iconify/icons-eva/edit-outline';
-
+import EditProfile from './EditProfile';
 // DashboardApp.propTypes = {
 //   userId: PropTypes.string
 // };
@@ -51,10 +51,11 @@ import Edit from '@iconify/icons-eva/edit-outline';
 
 export default function DashboardApp() {
   const params = useParams();
-  const edit = document.getElementById("editProfile");
+  const edit = document.getElementById("editProfileButton");
   if (edit !== null) {
-    if (params.userId === window.localStorage.getItem('userId')) edit.style.display = "none";
-    else edit.style.display = "block";
+    console.log(params.userId)
+    if (params.userId === window.localStorage.getItem('user_id')) edit.style.display = "block";
+    else edit.style.display = "none";
   }
   
   // console.log(params)
@@ -62,6 +63,8 @@ export default function DashboardApp() {
   // if (location !== null) console.log(location)
   // console.log(userId)
   const [profile, setProfile] = useState({});
+  // let isFinished = false;
+  const [isFinished, setIsFinished] = useState(false);
 
   useEffect(async () => {
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${params.userId}`, 
@@ -77,9 +80,31 @@ export default function DashboardApp() {
     .catch(function (error) {
       console.log(error);
     });
+    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/post/userposts/?user_id=${params.userId}`, null)
+    .then(function (response) {
+      console.log(response);
+      // setProfile(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }, [params])
   
+  const allowEdit = () => {
+    document.getElementById("editProfile").style.display = "none";
+    document.getElementById("editInput").style.display = "block";
+    document.getElementById("viewProfile").style.display = "none";
+    // document.getElementById("title").style.display = "none";
+  }
 
+  const finishEdit = () => {
+    // isFinished = true;
+    setIsFinished(current => !current);
+    document.getElementById("editProfile").style.display = "block";
+    document.getElementById("editInput").style.display = "none";
+    document.getElementById("viewProfile").style.display = "block";
+    // document.getElementById("title").style.display = "none";
+  }
 
   // const profile = async () => {
   //   axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=7`, 
@@ -95,30 +120,53 @@ export default function DashboardApp() {
   //     console.log(error);
   //   });
   // }
-
+  const[profileData, setProfileData] = useState(0);
   return (
     <Page title={`${profile.username}'s profile`}>
       {/* <button onClick={profile}>Profile</button> */}
       
       <Container maxWidth="xl">
         {/* <Box sx={{ pb: 5 }}> */}
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>{profile.username}'s profile</Typography>
-          <span id="editProfile" style={{ display: "none" }}>
-            <Button
-              variant="contained"
-              component={RouterLink}
-              to="/dashboard/editProfile"
-              startIcon={<Icon icon={Edit} />} 
-            >
-              Edit Profile
-            </Button>
-          </span>
-        </Stack>
+        <div id="editProfile">
+          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+              <Typography variant="h4" gutterBottom>{profile.username}'s profile</Typography>
+              <span id="editProfileButton" style={{ display: "none" }}>
+                <Button
+                  variant="contained"
+                  // component={RouterLink}
+                  // to= "/dashboard/editProfile"
+                  startIcon={<Icon icon={Edit} />} 
+                  onClick={allowEdit}
+                >
+                  Edit Profile
+                </Button>
+              </span>
+          </Stack>
+        </div>
+
+        <div id="editInput" style={{ display: "none" }}>
+            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+              <Typography variant="h4" gutterBottom>
+                Edit Profile
+              </Typography>
+              <Button
+                variant="contained"
+                // component={RouterLink}
+                // to="/"
+                startIcon={<Icon icon={Edit} />}
+                onClick={finishEdit}
+              >
+                Confirm Changes
+              </Button>
+            </Stack>
+            <EditProfile profile={profile} isFinished={isFinished}/>
+          </div>
          
         {/* </Box>   */}
+        <div id="viewProfile">
+          <Profile profile={profile}/>
+        </div>
         
-        <Profile profile={profile}/>
         {/* <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
             <AppWeeklySales />

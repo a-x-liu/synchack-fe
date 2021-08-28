@@ -3,12 +3,13 @@ import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
 import { useState } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { useLocation, Link as RouterLink } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import React from 'react';
 import axios from 'axios'
 
 import Send from '@iconify/icons-eva/paper-plane-fill';
+import PropTypes from 'prop-types';
 
 // material
 import {
@@ -47,6 +48,7 @@ import ImageUploading from 'react-images-uploading';
 import InsertPhotoOutlinedIcon from '@iconify/icons-eva/image-outline';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/styles';
+// import { useLocation, useParams, Link as RouterLink } from 'react-router-dom';
 
 const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
   width: '100%',
@@ -62,49 +64,80 @@ const ImgUpload = styled('div')(({ theme }) => ({
   padding: '14px 16.5px 14px 16.5px'
 }));
 
-export default function EditProfile() {
+EditProfile.propTypes = {
+  profile: PropTypes.object,
+  isFinished: PropTypes.bool
+};
+
+
+export default function EditProfile({ profile, isFinished }) {
+  const info = profile;
+  // console.log(info)
   const [thumbnail, setThumbnail] = useState('');
-  const [values, setValues] = React.useState({
-    title: '',
-    description: '',
-    amount: '0',
+  const [values, setValues] = useState({
+    first_name: "",
+    last_name:  "",
+    password: "",
+    bio: "",
   });
+  // console.log(values)
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
   const uploadImg = (imageList, addUpdateIndex) => {
     // data for submit
     setThumbnail(imageList);
-    console.log(imageList)
+    // console.log(imageList)
   };
+  // const location = useLocation();
+  // if (location !== null) console.log(location)
+
+  if (isFinished) {
+    if (values.password !== "") {
+      axios.put('https://zorlvan-enterprise-backend.herokuapp.com/account/changepassword', {
+        "password": values.password 
+      }, {
+        headers: {'Authorization': `Token ${window.localStorage.getItem('token')}`}
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+    axios.put('https://zorlvan-enterprise-backend.herokuapp.com/account/edit', {
+      "profile_pic": (values.profile_pic === "" ? info.profile_pic : values.profile_pic),
+      "first_name": (values.first_name === "" ? info.first_name : values.first_name),
+      "last_name": (values.last_name === "" ? info.last_name : values.last_name),
+      "bio": (values.bio === "" ? info.bio : values.bio)
+    }, {
+      headers: {'Authorization': `Token ${window.localStorage.getItem('token')}`}
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   return(
     <Page title="User | Minimal-UI">
       <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
-            Edit Profile
-          </Typography>
-          <Button
-            variant="contained"
-            component={RouterLink}
-            to="#"
-            startIcon={<Icon icon={Send} />}
-          >
-            Confirm Changes
-          </Button>
-        </Stack>
-
         <Card style={{ display: 'flex', flexDirection: 'column', padding: '30px' }}>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <SearchStyle
               placeholder="First name"
               style={{ marginBottom: '10px' }}
-              onChange={handleChange('title')}
+              value={values.first_name}
+              onChange={handleChange('first_name')}
             />
             <SearchStyle
               placeholder="Last name"
               style={{ marginBottom: '10px' }}
-              onChange={handleChange('title')}
+              value={values.last_name}
+              onChange={handleChange('last_name')}
             />
           </Stack>
           {/* <SearchStyle
@@ -118,7 +151,7 @@ export default function EditProfile() {
             // defaultValue="Default Value"
             variant="outlined"
             style={{ marginBottom: '10px' }}
-            onChange={handleChange('description')}
+            onChange={handleChange('password')}
           />
           <TextField
             id="outlined-multiline-static"
@@ -128,7 +161,7 @@ export default function EditProfile() {
             // defaultValue="Default Value"
             variant="outlined"
             style={{ marginBottom: '10px' }}
-            onChange={handleChange('description')}
+            onChange={handleChange('bio')}
           />
 
         {/* <FormControl fullWidth variant="outlined">
