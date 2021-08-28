@@ -13,10 +13,11 @@ import {
   TableCell,
   Container,
   Typography,
-  TableContainer,
-  TablePagination,
-  TextField,
-  ImageList
+  ListItemAvatar,
+  ListItemText,
+  ListItem,
+  List,
+  CardContent
 } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import Send from '@iconify/icons-eva/edit-outline';
@@ -62,14 +63,27 @@ export default function Profile({ profile }) {
         <h1>{info.username}</h1>
         <h5>{name}</h5>
       </div>
-      <div style={{ 
+      {/* <div style={{ 
+        display: "flex",
+        position: "absolute",
         width: "400px", 
-        margin: "30px",
+        marginLeft: "0px",
         padding: "10px",
         backgroundColor: "#D4EBD7",
         borderRadius: "10px"
         }} >{info.bio}
-        </div>
+        </div> */}
+        <Card style={{ position: 'absolute', width: "400px", marginLeft: '10px' }}>
+          <CardContent>
+            <Typography variant="h6">
+              Bio
+            </Typography>
+            {info.bio}
+            {/* <Typography variant="body2" component="p">
+              Thank You for Supporting Us 
+            </Typography> */}
+          </CardContent>
+        </Card>
       {/* <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4" gutterBottom>
           Create Post
