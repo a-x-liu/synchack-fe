@@ -36,11 +36,19 @@ export default function Profile({ profile }) {
   } 
   const classes = useStyles();
   return(
-    <div style={{ width: "400px", margin: "auto", display: "flex", alignItems: "center", flexDirection: "column" }}>
-      <Avatar alt={name} src={profile_pic} className={classes.large} />
-      <h1>{info.username}</h1>
-      <h5>{name}</h5>
-      <div>{info.bio}</div>
+    <div>
+      <div style={{ width: "400px", margin: "auto", display: "flex", alignItems: "center", flexDirection: "column" }}>
+        <Avatar alt={name} src={profile_pic} className={classes.large} />
+        <h1>{info.username}</h1>
+        <h5>{name}</h5>
+      </div>
+      <div style={{ 
+        width: "400px", 
+        margin: "30px",
+        padding: "10px",
+        backgroundColor: "#D4EBD7",
+        borderRadius: "10px"
+        }} >{info.bio}</div>
     </div>
   )
 }
