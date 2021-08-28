@@ -105,11 +105,9 @@ export default function PaymentModal({post}) {
       }
     }).then(function (res) {
       console.log(res)
-      if (res.status == 200) {
-        navigate(0)
-      } else {
-        alert('smthing went wrong')
-      }
+      if (res.status === 200) {
+        navigate("/dashboard/thankyou")
+      } 
     }).catch(function (err) {
       console.log(err)
     })
@@ -137,8 +135,7 @@ export default function PaymentModal({post}) {
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+            Any donation amount will go a long way to a good cause. Thank you for your generosity.
           </Typography>
           <FormControl fullWidth variant="outlined" style={{ marginTop: '8px' }}>
             <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
