@@ -2,12 +2,31 @@
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
-  Avatar
+  Card,
+  Table,
+  Stack,
+  Avatar,
+  Button,
+  Checkbox,
+  TableRow,
+  TableBody,
+  TableCell,
+  Container,
+  Typography,
+  TableContainer,
+  TablePagination,
+  TextField,
+  ImageList
 } from '@material-ui/core';
+import { Icon } from '@iconify/react';
+import Send from '@iconify/icons-eva/edit-outline';
+
+import { Link as RouterLink } from 'react-router-dom';
 
 Profile.propTypes = {
   profile: PropTypes.object
 };
+
 
 const useStyles = makeStyles((theme) => ({
   // root: {
@@ -27,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Profile({ profile }) {
+  
+  // console.log(params);
   const info = profile;
   console.log(info);
   const name = info.first_name + " " + info.last_name;
@@ -48,7 +69,21 @@ export default function Profile({ profile }) {
         padding: "10px",
         backgroundColor: "#D4EBD7",
         borderRadius: "10px"
-        }} >{info.bio}</div>
+        }} >{info.bio}
+        </div>
+      {/* <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+        <Typography variant="h4" gutterBottom>
+          Create Post
+        </Typography>
+        <Button
+          variant="contained"
+          component={RouterLink}
+          to="#"
+          startIcon={<Icon icon={Send} />}
+        >
+          Edit Profile
+        </Button>
+      </Stack> */}
     </div>
   )
 }

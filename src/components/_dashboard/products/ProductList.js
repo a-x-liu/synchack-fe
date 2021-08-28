@@ -10,10 +10,17 @@ ProductList.propTypes = {
 };
 
 export default function ProductList({ products, ...other }) {
+  console.log(products)
+  const dummy = []
+  for(let i = 0; i < products.length; i++){
+    if(products[i].is_org){
+      dummy.push(products[i]);
+    }
+  }
   return (
     <Grid container spacing={3} {...other}>
-      {products.map((product) => (
-        <Grid key={product.id} item xs={24} sm={12} md={6}>
+      {dummy.map((product) => (
+        <Grid key={product.pk} item xs={24} sm={12} md={6}>
           <ShopProductCard product={product} />
         </Grid>
       ))}

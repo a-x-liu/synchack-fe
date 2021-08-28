@@ -52,8 +52,9 @@ export default function AccountPopover() {
     })
     .then(function (response) {
       console.log(response);
-      if(response.data == "Successfully Logged Out"){
-        navigate('/login')
+      if(response.data === "Successfully Logged Out"){
+        navigate('/login');
+        window.localStorage.removeItem('token');
       } else {
         navigate('/dashboard/blog')
       }
@@ -92,7 +93,7 @@ export default function AccountPopover() {
           })
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={window.localStorage.getItem('profile_pic')} alt="photoURL" />
       </IconButton>
 
       <MenuPopover
@@ -103,21 +104,27 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {account.displayName}
+            {window.localStorage.getItem('username')} ({window.localStorage.getItem('first')} {window.localStorage.getItem('last')})
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {window.localStorage.getItem('email')}
           </Typography>
         </Box>
 
         <Divider sx={{ my: 1 }} />
 
-        <RouterLink to= {{
-          pathname: "/dashboard/profile",
-
-        }}>
+        <RouterLink to={{
+          pathname: `/dashboard/profile/${window.localStorage.getItem('user_id')}`,
+          // state: {
+          //   // userId: window.localStorage.getItem('user_id')
+          //   id: "test"
+          //   // "id": 1
+          // },
+        }}
+        style={{ textDecoration: "none" }} 
+        >
           <MenuItem
-              // key={Profile}
+              key={"Profile"}
               onClick={handleClose}
               sx={{ typography: 'body2', py: 1, px: 2.5 }}
             >

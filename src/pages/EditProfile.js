@@ -28,8 +28,6 @@ import {
   TextField,
   ImageList
 } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
 // components
 import Page from '../components/Page';
 import Label from '../components/Label';
@@ -50,25 +48,6 @@ import InsertPhotoOutlinedIcon from '@iconify/icons-eva/image-outline';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/styles';
 
-// import InsertPhotoOutlinedIcon from '@material-ui/icons/InsertPhotoOutlined';
-
-// ----------------------------------------------------------------------
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  textField: {
-    width: '25ch',
-  },
-}));
-
 const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
   width: '100%',
 }));
@@ -83,135 +62,88 @@ const ImgUpload = styled('div')(({ theme }) => ({
   padding: '14px 16.5px 14px 16.5px'
 }));
 
-const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: '' }
-];
-
-// ----------------------------------------------------------------------
-
-export default function User() {
-  const classes = useStyles()
+export default function EditProfile() {
   const [thumbnail, setThumbnail] = useState('');
-  const [donos, setDonos] = useState(false);
   const [values, setValues] = React.useState({
     title: '',
     description: '',
-    amount: '-1',
+    amount: '0',
   });
-
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
   const uploadImg = (imageList, addUpdateIndex) => {
     // data for submit
     setThumbnail(imageList);
     console.log(imageList)
   };
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  async function sendPost () {
-    const data = {
-      'image_url': thumbnail[0].data_url,
-      'account_id': 1,
-      'title': values.title,
-      'description': values.description,
-      'is_mission': donos,
-      'dollar_target': values.amount,
-      'current_dollar': 0,
-      'is_shared': 1,
-    }
-    console.log(data)
-
-    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/post/create/', data, {
-      headers: {
-        authorization: 'Token ' + localStorage.getItem('token')
-      }
-    }).then(function (response) {
-      console.log('here')
-      console.log(response)
-    }).catch(function (error) {
-      console.log('here2')
-      console.log(error)
-    })
-  }
-
-  return (
+  return(
     <Page title="User | Minimal-UI">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Create Post
+            Edit Profile
           </Typography>
           <Button
             variant="contained"
-            // component={RouterLink}
-            // to="#"
-            onClick={sendPost}
+            component={RouterLink}
+            to="#"
             startIcon={<Icon icon={Send} />}
           >
-            Confirm Post
+            Confirm Changes
           </Button>
         </Stack>
 
         <Card style={{ display: 'flex', flexDirection: 'column', padding: '30px' }}>
-          <SearchStyle
-            placeholder="Create a Post Title"
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+            <SearchStyle
+              placeholder="First name"
+              style={{ marginBottom: '10px' }}
+              onChange={handleChange('title')}
+            />
+            <SearchStyle
+              placeholder="Last name"
+              style={{ marginBottom: '10px' }}
+              onChange={handleChange('title')}
+            />
+          </Stack>
+          {/* <SearchStyle
+            placeholder="User name"
             style={{ marginBottom: '10px' }}
             onChange={handleChange('title')}
+          /> */}
+          <TextField
+            id="outlined-multiline-static"
+            label="Password"
+            // defaultValue="Default Value"
+            variant="outlined"
+            style={{ marginBottom: '10px' }}
+            onChange={handleChange('description')}
           />
           <TextField
             id="outlined-multiline-static"
-            label="Description"
+            label="Bio"
             multiline
-            rows={10}
+            rows={5}
             // defaultValue="Default Value"
             variant="outlined"
             style={{ marginBottom: '10px' }}
             onChange={handleChange('description')}
           />
 
-        {localStorage.getItem('is_org') == "true" ? 
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={donos}
-                onChange={() => {
-                  if (donos == false) setDonos(true)
-                  else setDonos(false)
-                }}
-                name="checkedB"
-                color="primary"
-              />
-            }
+        {/* <FormControl fullWidth variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-amount"
+            // value={values.amount}
+            // onChange={handleChange('amount')}
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            labelWidth={60}
+            type='number'
+            onChange={handleChange('amount')}
             style={{ marginBottom: '10px' }}
-            label="Include Support Target"
           />
-          :
-          <div></div>
-        }
-
-        {donos == true ?
-          <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-amount"
-              // value={values.amount}
-              // onChange={handleChange('amount')}
-              startAdornment={<InputAdornment position="start">$</InputAdornment>}
-              labelWidth={60}
-              type='number'
-              onChange={handleChange('amount')}
-              style={{ marginBottom: '10px' }}
-              />
-          </FormControl>
-          :
-          <div></div>
-        }
+        </FormControl> */}
           <ImgUpload>
             <ImageUploading
               value={thumbnail}
@@ -237,7 +169,7 @@ export default function User() {
                   <span style={{
                     position: 'relative',
                     bottom: '0px'
-                  }}>Add a Picture</span>
+                  }}>Change profile picture</span>
                   {imageList.map((image, index) => (
                     <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
                       <img src={image.data_url} alt="" width="50%" />
@@ -255,4 +187,4 @@ export default function User() {
       </Container>
     </Page>
   );
-}
+} 
