@@ -1,9 +1,10 @@
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
+import axios from 'axios';
 // material
 import {
   Card,
@@ -131,6 +132,48 @@ export default function User() {
 
   const isUserNotFound = filteredUsers.length === 0;
   
+
+  // const userProfile = async () => {
+  //   axios.post(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${window.localStorage.getItem('user_id')}`, {
+  //     "username": getFieldProps('userName').value,
+  //     "password": getFieldProps('password').value
+  //   }, null)
+  //   .then(function (response) {
+  //     console.log(response);
+  //     window.localStorage.setItem('token', response.data.token);
+  //     window.localStorage.setItem('user_id', response.data.user_id);
+  //     if(response.data.response === "Successful login!"){
+  //       navigate('/dashboard/blog')
+  //     } else {
+  //       navigate('/login')
+  //     }
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // }
+
+  useEffect(async () => {
+    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/explore`, null, { 
+      headers: { 
+        Authorization: "Token " + window.localStorage.getItem('token'),
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+      // window.localStorage.setItem('token', response.data.token);
+      // window.localStorage.setItem('user_id', response.data.user_id);
+      // if(response.data.response === "Successful login!"){
+      //   navigate('/dashboard/blog')
+      // } else {
+      //   navigate('/login')
+      // }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  },[]);
+
   return (
     <Page title="Search Users">
       <Container>
@@ -190,7 +233,7 @@ export default function User() {
                             />
                           </TableCell> */}
                           <TableCell component="th" scope="row" padding="none">
-                            <Stack direction="row" alignItems="center" spacing={2} style={{ marginLeft: "13px"}}>
+                            <Stack direction="row" alignItems="center" spacing={2} style={{ marginLeft: "13px" }}>
                               <Avatar alt={name} src={avatarUrl} />
                               <Typography variant="subtitle2" noWrap>
                                 {name}

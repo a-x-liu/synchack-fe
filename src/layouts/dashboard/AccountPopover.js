@@ -17,11 +17,11 @@ import account from '../../_mocks_/account';
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
-  {
-    label: 'Profile',
-    icon: homeFill,
-    linkTo: '/dashboard/profile'
-  },
+  // {
+  //   label: 'Profile',
+  //   icon: homeFill,
+  //   linkTo: '/dashboard/profile',
+  // },
   {
     label: 'Feed',
     icon: personFill,
@@ -111,6 +111,29 @@ export default function AccountPopover() {
         </Box>
 
         <Divider sx={{ my: 1 }} />
+
+        <RouterLink to= {{
+          pathname: "/dashboard/profile",
+
+        }}>
+          <MenuItem
+              // key={Profile}
+              onClick={handleClose}
+              sx={{ typography: 'body2', py: 1, px: 2.5 }}
+            >
+              <Box
+                component={Icon}
+                icon={homeFill}
+                sx={{
+                  mr: 2,
+                  width: 24,
+                  height: 24
+                }}
+              />
+              {"Profile"}
+            </MenuItem>
+        </RouterLink>
+        
 
         {MENU_OPTIONS.map((option) => (
           <MenuItem
