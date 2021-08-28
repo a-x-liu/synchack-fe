@@ -20,42 +20,21 @@ const ProductImgStyle = styled('img')({
 
 // ----------------------------------------------------------------------
 
-ShopProductCard.propTypes = {
-  product: PropTypes.object
+EventCard.propTypes = {
+  event: PropTypes.object
 };
 
-export default function ShopProductCard({ product }) {
-
-  React.useEffect(async () => {
-    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/account/subscribing', {
-      headers: {'Authorization': `Token ${window.localStorage.getItem('token')}`}
-    })
-    .then(function (response) {
-      console.log(response);
-      for(let i = 0; i < response.data.subscribing.length; i++){
-        if(pk === response.data.subscribing[i].pk){
-          document.getElementById('sub'+pk).style.display = 'none'
-          document.getElementById('unsub'+pk).style.display = 'block'
-        } 
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }, [])
-
-  const { bio, email, first_name, is_org, last_name, pk, profile_pic, username,subscriber_count } = product;
-  
-  const sub = async () => {
-    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/account/subscribe', {
-      "to_account_id": pk
+export default function EventCard({ event }) {  
+  const going = async () => {
+    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/participant/attend/', {
+      "event_id": event['pk']
     }, {
       headers: {'Authorization': `Token ${window.localStorage.getItem('token')}`}
     })
     .then(function (response) {
       console.log(response);
-      document.getElementById('sub'+pk).style.display = 'none'
-      document.getElementById('unsub'+pk).style.display = 'block'
+      document.getElementById('sub'+event['pk']).style.display = 'none'
+      document.getElementById('unsub'+event['pk']).style.display = 'block'
 
     })
     .catch(function (error) {
@@ -63,20 +42,20 @@ export default function ShopProductCard({ product }) {
       
     });
   }
-  const unsub = async () => {
-    axios.delete("https://zorlvan-enterprise-backend.herokuapp.com/account/unsubscribe", 
+  const cancel = async () => {
+    axios.delete("https://zorlvan-enterprise-backend.herokuapp.com/participant/unattend/", 
     {
       headers: {
         Authorization: `Token ${window.localStorage.getItem('token')}`
       },
       data: {
-        "to_account_id": pk
+        "event_id": event['pk']
       }
     })
     .then(function (response) {
       console.log(response);
-      document.getElementById('sub'+pk).style.display = 'block'
-      document.getElementById('unsub'+pk).style.display = 'none'
+      document.getElementById('sub'+event['pk']).style.display = 'block'
+      document.getElementById('unsub'+event['pk']).style.display = 'none'
     })
     .catch(function (error) {
       console.log(error);
@@ -85,73 +64,44 @@ export default function ShopProductCard({ product }) {
 
   return (
     <Card>
+      {console.log(event)}
       <Box sx={{ pt: '100%', position: 'relative'}}>
-        {/* {status && (
-          <Label
-            variant="filled"
-            color={(status === 'sale' && 'error') || 'info'}
-            sx={{
-              zIndex: 9,
-              top: 16,
-              right: 16,
-              position: 'absolute',
-              textTransform: 'uppercase'
-            }}
-          >
-            {status}
-          </Label>
-        )} */}
-        <ProductImgStyle alt={first_name} src={profile_pic} />
+        <ProductImgStyle alt={event['description']} src={event['event_pic']} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-      <RouterLink to={{
-          pathname: `/dashboard/profile/${pk}`,
-          // state: {
-          //   // userId: window.localStorage.getItem('user_id')
-          //   id: "test"
-          //   // "id": 1
-          // },
-        }}>
-          <Typography variant="subtitle2" noWrap textAlign={'center'}>
-            {username}
+        <Typography className="nice" variant="subtitle2" textAlign={'center'} noWrap>
+          {event['creator_username']}'s
+        </Typography>
+        <RouterLink to={{
+            pathname: `/dashboard/viewevent/${event['pk']}`,
+          }}>
+          <Typography variant="subtitle1" noWrap textAlign={'center'}>
+            {event['title']}
           </Typography>
         </RouterLink>
-
+            
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="subtitle1">
-            <Typography
-              component="span"
-              variant="body1"
-              sx={{
-                color: 'text.disabled',
-                textDecoration: 'line-through'
-              }}
-            >
+            <Typography variant="subtitle2" noWrap>
+              ATTENDEES: {event['participant_count']}
             </Typography>
-            <div className="flexRow">
-              <Typography variant="subtitle2" noWrap>
-                ATTENDEES: {subscriber_count}
-              </Typography>
-            </div>
-            <span id={'sub'+pk}>
+            <span id={'sub'+event['pk']}>
               <Button
                 variant="contained"
-                onClick={sub}
+                onClick={going}
               >
                 GOING
               </Button>
               </span>
               <span style={{display: 'none'}}
-                id={'unsub'+pk}>
+                id={'unsub'+event['pk']}>
                 <Button
                   variant="contained"
-                  onClick={unsub}
+                  onClick={cancel}
                 >
                 CANCEL
               </Button>
               </span>
-          </Typography>
         </Stack>
       </Stack>
     </Card>
