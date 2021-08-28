@@ -1,7 +1,7 @@
 import faker from 'faker';
 import PropTypes from 'prop-types';
 import { noCase } from 'change-case';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { set, sub, formatDistanceToNow } from 'date-fns';
 import { Icon } from '@iconify/react';
@@ -30,6 +30,7 @@ import { mockImgAvatar } from '../../utils/mockImages';
 // components
 import Scrollbar from '../../components/Scrollbar';
 import MenuPopover from '../../components/MenuPopover';
+import axios from 'axios'
 
 // ----------------------------------------------------------------------
 
@@ -175,7 +176,11 @@ function NotificationItem({ notification }) {
 
   return (
     <ListItemButton
-      to="#"
+      to={notification.is_shared == null ?
+        "/dashboard/viewpost/" + notification.pk
+        :
+        "/dashboard/viewpost/" + notification.original_post.pk
+      }
       disableGutters
       component={RouterLink}
       sx={{
@@ -188,10 +193,14 @@ function NotificationItem({ notification }) {
       }}
     >
       <ListItemAvatar>
-        <Avatar sx={{ bgcolor: 'background.neutral' }}>{avatar}</Avatar>
+        <Avatar sx={{ bgcolor: 'background.neutral' }} src={notification.profile_pic}></Avatar>
       </ListItemAvatar>
       <ListItemText
-        primary={title}
+        primary={notification.is_shared == null ?
+          notification.username + " shared a post"
+          :
+          notification.username + " created a new post"
+        }
         secondary={
           <Typography
             variant="caption"
@@ -203,7 +212,7 @@ function NotificationItem({ notification }) {
             }}
           >
             <Box component={Icon} icon={clockFill} sx={{ mr: 0.5, width: 16, height: 16 }} />
-            {formatDistanceToNow(new Date(notification.createdAt))}
+            {formatDistanceToNow(new Date(notification.time_created))}
           </Typography>
         }
       />
@@ -214,8 +223,7 @@ function NotificationItem({ notification }) {
 export default function NotificationsPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [notifications, setNotifications] = useState(NOTIFICATIONS);
-  const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
+  const [notifications, setNotifications] = useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -234,6 +242,36 @@ export default function NotificationsPopover() {
     );
   };
 
+  useEffect(() => {
+    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/post/feed/', {
+      headers: {
+        authorization: 'Token ' + localStorage.getItem('token')
+      }
+    }).then(function (res) {
+      // console.log(res.data.results[0].time_created)
+      // console.log(res.data.posts)
+      // console.log(notifications)
+      // // const filteredArray = res.data.posts.filter(value => !notifications.includes(value.pk));
+      // const filteredArray = res.data.posts.filter(({ pk: id1 }) => !notifications.some(({ pk: id2 }) => id2 === id1));
+      // console.log(filteredArray)
+      // if (filteredArray.length == 0) {
+      //   return;
+      // }
+      // setNotifications([
+      //   ...notifications,
+      //   ...filteredArray,
+      // ]
+      // );
+      // console.log([
+      //   ...notifications,
+      //   ...filteredArray,
+      // ])
+      setNotifications(res.data.posts)
+    }).catch(function (err) {
+      console.log(err)
+    })
+  }, [notifications])
+
   return (
     <>
       <IconButton
@@ -247,7 +285,7 @@ export default function NotificationsPopover() {
           })
         }}
       >
-        <Badge badgeContent={totalUnRead} color="error">
+        <Badge badgeContent={notifications.filter((item) => item.isUnRead === true).length} color="error">
           <Icon icon={bellFill} width={20} height={20} />
         </Badge>
       </IconButton>
@@ -262,11 +300,11 @@ export default function NotificationsPopover() {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">Notifications</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              You have {totalUnRead} unread messages
+              You have notifications
             </Typography>
           </Box>
 
-          {totalUnRead > 0 && (
+          {notifications.filter((item) => item.isUnRead === true).length > 0 && (
             <Tooltip title=" Mark all as read">
               <IconButton color="primary" onClick={handleMarkAllAsRead}>
                 <Icon icon={doneAllFill} width={20} height={20} />
@@ -282,16 +320,16 @@ export default function NotificationsPopover() {
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                New
+                Notification History
               </ListSubheader>
             }
           >
-            {notifications.slice(0, 2).map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
+            {notifications.map((notification) => (
+                <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
 
-          <List
+          {/* <List
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
@@ -299,10 +337,14 @@ export default function NotificationsPopover() {
               </ListSubheader>
             }
           >
-            {notifications.slice(2, notifications.length).map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
-            ))}
-          </List>
+            {notifications.map((notification) => {
+              if (notification.isUnRead == false) {
+                return(
+                  <NotificationItem key={notification.id} notification={notification} />
+                )
+              }
+            })}
+          </List> */}
         </Scrollbar>
 
         <Divider />
