@@ -153,7 +153,7 @@ export default function User() {
   //     console.log(error);
   //   });
   // }
-  console.log(users);
+  // console.log(users);
   useEffect(async () => {
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/explore`, { 
       headers: { 
@@ -250,7 +250,7 @@ export default function User() {
                                 <Avatar alt={first_name} src={profile_pic} />
                                 <Typography variant="subtitle2" noWrap>
                                   {first_name + " " + last_name}
-                                  {is_org ? <VerifiedUserIcon fontSize="small"/> : ""}
+                                  {is_org ? <VerifiedUserIcon fontSize="small" style={{ marginTop: "10px" }}/> : ""}
                                 </Typography>
                               </Stack>
                             </RouterLink>
