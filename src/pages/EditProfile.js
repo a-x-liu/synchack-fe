@@ -91,7 +91,6 @@ export default function EditProfile({ profile, isFinished }) {
   };
   // const location = useLocation();
   // if (location !== null) console.log(location)
-
   if (isFinished) {
     if (values.password !== "") {
       axios.put('https://zorlvan-enterprise-backend.herokuapp.com/account/changepassword', {
@@ -107,7 +106,7 @@ export default function EditProfile({ profile, isFinished }) {
       });
     }
     axios.put('https://zorlvan-enterprise-backend.herokuapp.com/account/edit', {
-      "profile_pic": (values.profile_pic === "" ? info.profile_pic : values.profile_pic),
+      "profile_pic": (thumbnail === "" ? "" : thumbnail[0].data_url),
       "first_name": (values.first_name === "" ? info.first_name : values.first_name),
       "last_name": (values.last_name === "" ? info.last_name : values.last_name),
       "bio": (values.bio === "" ? info.bio : values.bio)

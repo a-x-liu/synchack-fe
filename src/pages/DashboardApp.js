@@ -39,7 +39,7 @@ import {
   TablePagination,
   TextField,
   ImageList,
-  Box
+  Grid,
 } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import Edit from '@iconify/icons-eva/edit-outline';
@@ -47,9 +47,34 @@ import EditProfile from './EditProfile';
 // DashboardApp.propTypes = {
 //   userId: PropTypes.string
 // };
+import plusFill from '@iconify/icons-eva/plus-fill';
+// material
+import { makeStyles } from '@material-ui/styles';
+import CardContent from '@material-ui/core/CardContent';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+
+// components
+import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/blog';
+import SharePostCard from 'src/components/_dashboard/blog/SharePostCard';
+//
+import POSTS from '../_mocks_/blog';
+
+
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    minWidth: 300,
+  },
+});
 
 
 export default function DashboardApp() {
+  const classes = useStyles();
   const params = useParams();
   const edit = document.getElementById("editProfileButton");
   if (edit !== null) {
@@ -65,6 +90,7 @@ export default function DashboardApp() {
   const [profile, setProfile] = useState({});
   // let isFinished = false;
   const [isFinished, setIsFinished] = useState(false);
+  const[postData, setPostData] = useState([]);
 
   useEffect(async () => {
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${params.userId}`, 
@@ -80,10 +106,11 @@ export default function DashboardApp() {
     .catch(function (error) {
       console.log(error);
     });
+
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/post/userposts/?user_id=${params.userId}`, null)
     .then(function (response) {
       console.log(response);
-      // setProfile(response);
+      setPostData(response.data.results); 
     })
     .catch(function (error) {
       console.log(error);
@@ -94,7 +121,7 @@ export default function DashboardApp() {
     document.getElementById("editProfile").style.display = "none";
     document.getElementById("editInput").style.display = "block";
     document.getElementById("viewProfile").style.display = "none";
-    // document.getElementById("title").style.display = "none";
+    document.getElementById("userPosts").style.display = "none";
   }
 
   const finishEdit = () => {
@@ -103,7 +130,7 @@ export default function DashboardApp() {
     document.getElementById("editProfile").style.display = "block";
     document.getElementById("editInput").style.display = "none";
     document.getElementById("viewProfile").style.display = "block";
-    // document.getElementById("title").style.display = "none";
+    document.getElementById("userPosts").style.display = "block";
   }
 
   // const profile = async () => {
@@ -120,52 +147,95 @@ export default function DashboardApp() {
   //     console.log(error);
   //   });
   // }
-  const[profileData, setProfileData] = useState(0);
+  
   return (
     <Page title={`${profile.username}'s profile`}>
       {/* <button onClick={profile}>Profile</button> */}
       
-      <Container maxWidth="xl">
+      <Container>
         {/* <Box sx={{ pb: 5 }}> */}
-        <div id="editProfile">
-          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-              <Typography variant="h4" gutterBottom>{profile.username}'s profile</Typography>
-              <span id="editProfileButton" style={{ display: "none" }}>
+
+        {/* <div> */}
+          <div id="editProfile">
+            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+                <Typography variant="h4" gutterBottom>{profile.username}'s profile</Typography>
+                <span id="editProfileButton" style={{ display: "none" }}>
+                  <Button
+                    variant="contained"
+                    // component={RouterLink}
+                    // to= "/dashboard/editProfile"
+                    startIcon={<Icon icon={Edit} />} 
+                    onClick={allowEdit}
+                  >
+                    Edit Profile
+                  </Button>
+                </span>
+            </Stack>
+          </div>
+
+          <div id="editInput" style={{ display: "none" }}>
+              <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+                <Typography variant="h4" gutterBottom>
+                  Edit Profile
+                </Typography>
                 <Button
                   variant="contained"
                   // component={RouterLink}
-                  // to= "/dashboard/editProfile"
-                  startIcon={<Icon icon={Edit} />} 
-                  onClick={allowEdit}
+                  // to="/"
+                  startIcon={<Icon icon={Edit} />}
+                  onClick={finishEdit}
                 >
-                  Edit Profile
+                  Confirm Changes
                 </Button>
-              </span>
-          </Stack>
-        </div>
-
-        <div id="editInput" style={{ display: "none" }}>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-              <Typography variant="h4" gutterBottom>
-                Edit Profile
-              </Typography>
-              <Button
-                variant="contained"
-                // component={RouterLink}
-                // to="/"
-                startIcon={<Icon icon={Edit} />}
-                onClick={finishEdit}
-              >
-                Confirm Changes
-              </Button>
-            </Stack>
-            <EditProfile profile={profile} isFinished={isFinished}/>
+              </Stack>
+              <EditProfile profile={profile} isFinished={isFinished}/>
+            </div>
+          
+          {/* </Box>   */}
+          <div id="viewProfile">
+            <Profile profile={profile}/>
           </div>
-         
-        {/* </Box>   */}
-        <div id="viewProfile">
-          <Profile profile={profile}/>
-        </div>
+        {/* </div> */}
+        
+        
+
+        {/* {postData.map((row) => {
+        
+        
+          const { bio, email, first_name, is_org, last_name, pk, profile_pic, username } = row;
+          return(
+            <div>
+
+            </div>
+          );
+        })} */}
+        <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}} id="userPosts">
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
+          style={{ marginLeft: "21%" }}
+        >
+          <Grid
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="center"
+            xs={12}
+            md={7}
+          >
+            {postData.map((post, index) => {
+              if (post.is_shared === 1) {
+                return(<BlogPostCard key={index} post={post} index={index} full={false}/>)
+              } else {
+                return(<SharePostCard key={index} post={post} index={index} full={false}/>)
+              }
+            })}
+          </Grid>
+        </Grid>
+      </Container>
+        
         
         {/* <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>

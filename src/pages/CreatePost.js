@@ -123,7 +123,6 @@ export default function User() {
       'is_mission': donos,
       'dollar_target': values.amount,
       'current_dollar': 0,
-      'is_shared': 1,
     }
     console.log(data)
 
@@ -141,7 +140,7 @@ export default function User() {
   }
 
   return (
-    <Page title="User | Minimal-UI">
+    <Page title="Create your post!">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>

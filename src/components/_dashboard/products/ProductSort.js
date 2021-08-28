@@ -34,7 +34,7 @@ export default function ShopProductSort() {
       >
         Sort By:&nbsp;
         <Typography component="span" variant="subtitle2" sx={{ color: 'text.secondary' }}>
-          Newest
+          Featured
         </Typography>
       </Button>
       <Menu
@@ -48,7 +48,6 @@ export default function ShopProductSort() {
         {SORT_BY_OPTIONS.map((option) => (
           <MenuItem
             key={option.value}
-            selected={option.value === 'newest'}
             onClick={handleClose}
             sx={{ typography: 'body2' }}
           >
