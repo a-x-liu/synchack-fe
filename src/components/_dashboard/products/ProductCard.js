@@ -52,11 +52,18 @@ export default function ShopProductCard({ product }) {
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Link to="/dashboard" color="inherit" underline="hover" component={RouterLink}>
+      <RouterLink to={{
+          pathname: `/dashboard/profile/${pk}`,
+          // state: {
+          //   // userId: window.localStorage.getItem('user_id')
+          //   id: "test"
+          //   // "id": 1
+          // },
+        }}>
           <Typography variant="subtitle2" noWrap textAlign={'center'}>
             {username}
           </Typography>
-        </Link>
+        </RouterLink>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           {/* <ColorPreview colors={colors} /> */}
