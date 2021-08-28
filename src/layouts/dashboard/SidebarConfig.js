@@ -20,9 +20,14 @@ const sidebarConfig = [
   //   icon: getIcon(pieChart2Fill)
   // },
   {
-    title: 'blog',
+    title: 'News Feed',
     path: '/dashboard/blog',
     icon: getIcon(fileTextFill)
+  },
+  {
+    title: 'Create Post',
+    path: '/dashboard/createpost',
+    icon: getIcon(square)
   },
   {
     title: 'explore',
@@ -35,14 +40,14 @@ const sidebarConfig = [
     icon: getIcon(calendarFill)
   },
   {
-    title: 'users',
-    path: '/dashboard/user',
-    icon: getIcon(peopleFill)
+    title: 'Create Event',
+    path: '/dashboard/createevent',
+    icon: getIcon(square)
   },
   {
-    title: 'Create Post',
-    path: '/dashboard/createpost',
-    icon: getIcon(square)
+    title: 'Find Users',
+    path: '/dashboard/user',
+    icon: getIcon(peopleFill)
   },
   
   // {
