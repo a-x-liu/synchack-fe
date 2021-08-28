@@ -120,6 +120,7 @@ export default function AccountPopover() {
           //   // "id": 1
           // },
         }}
+        style={{ textDecoration: "none" }} 
         >
           <MenuItem
               key={"Profile"}
