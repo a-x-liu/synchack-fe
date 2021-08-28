@@ -79,21 +79,21 @@ export default function User() {
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const [users, setUsers] = useState([]);
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
+  // const handleSelectAllClick = (event) => {
+  //   if (event.target.checked) {
+  //     const newSelecteds = USERLIST.map((n) => n.name);
+  //     setSelected(newSelecteds);
+  //     return;
+  //   }
+  //   setSelected([]);
+  // };
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -154,13 +154,14 @@ export default function User() {
   // }
 
   useEffect(async () => {
-    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/explore`, null, { 
+    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/explore`, { 
       headers: { 
         Authorization: "Token " + window.localStorage.getItem('token'),
       }
     })
     .then(function (response) {
       console.log(response);
+      setUsers(response.data.results)
       // window.localStorage.setItem('token', response.data.token);
       // window.localStorage.setItem('user_id', response.data.user_id);
       // if(response.data.response === "Successful login!"){
@@ -233,12 +234,19 @@ export default function User() {
                             />
                           </TableCell> */}
                           <TableCell component="th" scope="row" padding="none">
-                            <Stack direction="row" alignItems="center" spacing={2} style={{ marginLeft: "13px" }}>
-                              <Avatar alt={name} src={avatarUrl} />
-                              <Typography variant="subtitle2" noWrap>
-                                {name}
-                              </Typography>
-                            </Stack>
+                            <RouterLink to={{
+                              pathname: "/dashboard/profile",
+                              state: {
+                                name: name
+                              }
+                            }}>
+                              <Stack direction="row" alignItems="center" spacing={2} style={{ marginLeft: "13px" }}>
+                                <Avatar alt={name} src={avatarUrl} />
+                                <Typography variant="subtitle2" noWrap>
+                                  {name}
+                                </Typography>
+                              </Stack>
+                            </RouterLink>
                           </TableCell>
                           {/* <TableCell align="left">{company}</TableCell> */}
                           <TableCell align="left">{role}</TableCell>

@@ -52,7 +52,7 @@ export default function AccountPopover() {
     })
     .then(function (response) {
       console.log(response);
-      if(response.data == "Successfully Logged Out"){
+      if(response.data === "Successfully Logged Out"){
         navigate('/login')
       } else {
         navigate('/dashboard/blog')
@@ -112,12 +112,16 @@ export default function AccountPopover() {
 
         <Divider sx={{ my: 1 }} />
 
-        <RouterLink to= {{
+        <RouterLink to={{
           pathname: "/dashboard/profile",
-
+          state: {
+            // userId: window.localStorage.getItem('user_id')
+            id: "test"
+            // "id": 1
+          },
         }}>
           <MenuItem
-              // key={Profile}
+              key={"Profile"}
               onClick={handleClose}
               sx={{ typography: 'body2', py: 1, px: 2.5 }}
             >

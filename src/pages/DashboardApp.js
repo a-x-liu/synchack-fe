@@ -19,16 +19,19 @@ import {
 } from '../components/_dashboard/app';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 // ----------------------------------------------------------------------
 
-DashboardApp.propTypes = {
-  userId: PropTypes.string
-};
+// DashboardApp.propTypes = {
+//   userId: PropTypes.string
+// };
 
 
-export default function DashboardApp({ userId }) {
-  console.log(userId)
+export default function DashboardApp() {
+  const location = useLocation();
+  if (location !== null) console.log(location)
+  // console.log(userId)
   const [profile, setProfile] = useState({});
 
   // useEffect(async () => {
