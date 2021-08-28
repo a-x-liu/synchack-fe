@@ -80,6 +80,14 @@ export default function DashboardApp() {
     .catch(function (error) {
       console.log(error);
     });
+    axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/post/userposts/?user_id=${params.userId}`, null)
+    .then(function (response) {
+      console.log(response);
+      // setProfile(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }, [params])
   
   const allowEdit = () => {

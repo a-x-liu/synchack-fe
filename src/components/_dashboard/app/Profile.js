@@ -27,7 +27,6 @@ Profile.propTypes = {
   profile: PropTypes.object
 };
 
-
 const useStyles = makeStyles((theme) => ({
   // root: {
   //   display: 'flex',
