@@ -7,6 +7,7 @@ import messageCircleFill from '@iconify/icons-eva/message-circle-fill';
 // material
 import { alpha, styled } from '@material-ui/core/styles';
 import { Box, Link, Card, Grid, Avatar, Typography, CardContent } from '@material-ui/core';
+import LinearProgress from '@material-ui/core/LinearProgress';
 // utils
 import { fDate } from '../../../utils/formatTime';
 import { fShortenNumber } from '../../../utils/formatNumber';
@@ -21,7 +22,6 @@ const CardMediaStyle = styled('div')({
 });
 
 const TitleStyle = styled(Link)({
-  height: 44,
   overflow: 'hidden',
   WebkitLineClamp: 2,
   display: '-webkit-box',
@@ -60,10 +60,25 @@ BlogPostCard.propTypes = {
   index: PropTypes.number
 };
 
+function LinearProgressWithLabel(props) {
+  return (
+    <Box display="flex" alignItems="center">
+      <Box width="100%" mr={1}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box minWidth={35}>
+        <Typography variant="body2" color="textSecondary">{`${Math.round(
+          props.value,
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
+
 export default function BlogPostCard({ post, index }) {
   const { cover, title, view, comment, share, author, createdAt } = post;
-  const latestPostLarge = index === 0;
-  const latestPost = index === 1 || index === 2;
+  // const latestPostLarge = index === 0;
+  // const latestPost = index === 1 || index === 2;
 
   const POST_INFO = [
     { number: comment, icon: messageCircleFill },
@@ -72,29 +87,9 @@ export default function BlogPostCard({ post, index }) {
   ];
 
   return (
-    <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
-      <Card sx={{ position: 'relative' }}>
-        <CardMediaStyle
-          sx={{
-            ...((latestPostLarge || latestPost) && {
-              pt: 'calc(100% * 4 / 3)',
-              '&:after': {
-                top: 0,
-                content: "''",
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72)
-              }
-            }),
-            ...(latestPostLarge && {
-              pt: {
-                xs: 'calc(100% * 4 / 3)',
-                sm: 'calc(100% * 3 / 4.66)'
-              }
-            })
-          }}
-        >
+    // <Grid item xs={12} style={{ paddingBottom: '20px' }}>
+      <Card sx={{ marginBottom: '20px', width: "100%", maxWidth: '650px' }}>
+        <CardMediaStyle>
           <SvgIconStyle
             color="paper"
             src="/static/icons/shape-avatar.svg"
@@ -104,36 +99,26 @@ export default function BlogPostCard({ post, index }) {
               zIndex: 9,
               bottom: -15,
               position: 'absolute',
-              ...((latestPostLarge || latestPost) && { display: 'none' })
             }}
           />
           <AvatarStyle
             alt={author.name}
             src={author.avatarUrl}
-            sx={{
-              ...((latestPostLarge || latestPost) && {
-                zIndex: 9,
-                top: 24,
-                left: 24,
-                width: 40,
-                height: 40
-              })
-            }}
           />
 
           <CoverImgStyle alt={title} src={cover} />
         </CardMediaStyle>
 
-        <CardContent
-          sx={{
-            pt: 4,
-            ...((latestPostLarge || latestPost) && {
-              bottom: 0,
-              width: '100%',
-              position: 'absolute'
-            })
-          }}
-        >
+        <CardContent sx={{pt: 4,}}>
+          <TitleStyle
+            to="#"
+            color="inherit"
+            variant="subtitle2"
+            underline="hover"
+            component={RouterLink}
+          >
+            {title}
+          </TitleStyle>
           <Typography
             gutterBottom
             variant="caption"
@@ -142,23 +127,24 @@ export default function BlogPostCard({ post, index }) {
             {fDate(createdAt)}
           </Typography>
 
-          <TitleStyle
-            to="#"
-            color="inherit"
-            variant="subtitle2"
-            underline="hover"
-            component={RouterLink}
-            sx={{
-              ...(latestPostLarge && { typography: 'h5', height: 60 }),
-              ...((latestPostLarge || latestPost) && {
-                color: 'common.white'
-              })
-            }}
+          <Typography
+            gutterBottom
+            variant="body2"
+            sx={{ display: 'block' }}
           >
-            {title}
-          </TitleStyle>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+            unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
+            dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+            unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
+            dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+          </Typography>
+
 
           <InfoStyle>
+          <div style={{ width: '100%', marginBottom: '7px' }}>
+            <LinearProgressWithLabel value={80} />
+          </div>
             {POST_INFO.map((info, index) => (
               <Box
                 key={index}
@@ -166,9 +152,9 @@ export default function BlogPostCard({ post, index }) {
                   display: 'flex',
                   alignItems: 'center',
                   ml: index === 0 ? 0 : 1.5,
-                  ...((latestPostLarge || latestPost) && {
-                    color: 'grey.500'
-                  })
+                  // ...((latestPostLarge || latestPost) && {
+                  //   color: 'grey.500'
+                  // })
                 }}
               >
                 <Box component={Icon} icon={info.icon} sx={{ width: 16, height: 16, mr: 0.5 }} />
@@ -178,6 +164,6 @@ export default function BlogPostCard({ post, index }) {
           </InfoStyle>
         </CardContent>
       </Card>
-    </Grid>
+    // </Grid>
   );
 }
