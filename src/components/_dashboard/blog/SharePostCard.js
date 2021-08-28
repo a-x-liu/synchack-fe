@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import CardHeader from '@material-ui/core/CardHeader';
 import axios from 'axios'
 import BlogPostCard from './BlogPostCard';
-
+import trash from '@iconify/icons-eva/trash-2-outline';
 // ----------------------------------------------------------------------
 
 const CardMediaStyle = styled('div')({

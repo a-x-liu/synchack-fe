@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import React from 'react';
+// import React, {} from 'react';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
@@ -29,11 +29,11 @@ export default function LoginForm() {
     userName: Yup.string().email('Username must be a valid username').required('Username is required'),
     password: Yup.string().required('Password is required')
   });
+
   const formik = useFormik({
     initialValues: {
-      userName: '',
+      userName: "",
       password: '',
-      remember: true
     },
     validationSchema: LoginSchema,
     onSubmit: () => {
@@ -47,7 +47,6 @@ export default function LoginForm() {
       "password": getFieldProps('password').value
     }, null)
     .then(function (response) {
-      console.log(response);
       window.localStorage.setItem('token', response.data.token);
       window.localStorage.setItem('user_id', response.data.user_id);
       window.localStorage.setItem('username', response.data.username);
@@ -108,10 +107,6 @@ export default function LoginForm() {
         </Stack>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-          <FormControlLabel
-            control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
-            label="Remember me"
-          />
         </Stack>
 
         <LoadingButton
