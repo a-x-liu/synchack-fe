@@ -14,6 +14,8 @@ import CreatePost from './pages/CreatePost';
 import FullPost from './pages/FullPost';
 import Events from './pages/Events';
 import ThankYou from './pages/ThankYou';
+import CreateEvent from './pages/CreateEvent';
+import FullEvent from './pages/FullEvent';
 
 // ----------------------------------------------------------------------
 
@@ -29,8 +31,10 @@ export default function Router() {
         { path: 'explore', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         { path: 'createpost', element: <CreatePost /> },
+        { path: 'viewevent/:eventid', element: <FullEvent />},
         { path: 'viewpost/:postid', element: <FullPost />},
         { path: 'events', element: <Events />},
+        { path: 'createevent', element: <CreateEvent />},
         { path: 'thankyou', element: <ThankYou />}
       ]
     },
