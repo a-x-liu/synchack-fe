@@ -19,15 +19,21 @@ import {
 } from '../components/_dashboard/app';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 // ----------------------------------------------------------------------
 
-export default function DashboardApp() {
+DashboardApp.propTypes = {
+  userId: PropTypes.string
+};
 
+
+export default function DashboardApp({ userId }) {
+  console.log(userId)
   const [profile, setProfile] = useState({});
 
   useEffect(async () => {
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${window.localStorage.getItem('user_id')}`, 
-    {
+    { 
       headers: { 
         Authorization: "Token " + window.localStorage.getItem('token'),
       }
