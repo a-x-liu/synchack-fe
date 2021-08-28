@@ -74,9 +74,8 @@ export default function EventCard({ event }) {
   if (event['event_pic'] !== null) colour = getRandomColor();
   return (
     <Card>
-      {console.log(event)}
-      <Box sx={{ pt: '100%', position: 'relative'}} style={{ backgroundColor: colour }}>
-        {event['event_pic'] ? <ProductImgStyle alt={event['description']} src={event['event_pic']} /> : ""}
+      <Box sx={{ pt: '100%', position: 'relative'}}>
+        <ProductImgStyle alt={event['description']} src={event['event_pic']} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
