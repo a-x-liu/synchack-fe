@@ -270,7 +270,7 @@ export default function User() {
                             </Label>
                           </TableCell> */}
                           <TableCell align="right">
-                            <UserMoreMenu />
+                            <UserMoreMenu pk={pk} />
                           </TableCell>
                         </TableRow>
                       );
