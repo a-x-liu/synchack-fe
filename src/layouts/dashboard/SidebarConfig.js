@@ -13,15 +13,15 @@ import globeFill from '@iconify/icons-eva/globe-2-fill';
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
 const sidebarConfig = [
+  // {
+  //   title: 'profile',
+  //   path: '/dashboard/profile',
+  //   icon: getIcon(pieChart2Fill)
+  // },
   {
-    title: 'profile',
-    path: '/dashboard/profile',
-    icon: getIcon(pieChart2Fill)
-  },
-  {
-    title: 'user',
-    path: '/dashboard/user',
-    icon: getIcon(peopleFill)
+    title: 'blog',
+    path: '/dashboard/blog',
+    icon: getIcon(fileTextFill)
   },
   {
     title: 'explore',
@@ -29,30 +29,32 @@ const sidebarConfig = [
     icon: getIcon(globeFill)
   },
   {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: getIcon(fileTextFill)
-  },
-  {
-    title: 'login',
-    path: '/login',
-    icon: getIcon(lockFill)
-  },
-  {
-    title: 'register',
-    path: '/register',
-    icon: getIcon(personAddFill)
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: getIcon(alertTriangleFill)
+    title: 'user',
+    path: '/dashboard/user',
+    icon: getIcon(peopleFill)
   },
   {
     title: 'Create Post',
     path: '/dashboard/createpost',
     icon: getIcon(lockFill)
   },
+  
+  // {
+  //   title: 'login',
+  //   path: '/login',
+  //   icon: getIcon(lockFill)
+  // },
+  // {
+  //   title: 'register',
+  //   path: '/register',
+  //   icon: getIcon(personAddFill)
+  // },
+  // {
+  //   title: 'Not found',
+  //   path: '/404',
+  //   icon: getIcon(alertTriangleFill)
+  // },
+  
   {
     title: 'your mum',
     path: '/dashboard/yourmum',

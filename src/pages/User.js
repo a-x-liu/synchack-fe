@@ -269,7 +269,6 @@ export default function User() {
                               {sentenceCase(status)}
                             </Label>
                           </TableCell> */}
-
                           <TableCell align="right">
                             <UserMoreMenu />
                           </TableCell>

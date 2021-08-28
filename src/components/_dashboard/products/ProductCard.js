@@ -69,17 +69,19 @@ export default function ShopProductCard({ product }) {
     });
   }
   const unsub = async () => {
-    axios.delete('https://zorlvan-enterprise-backend.herokuapp.com/account/unsubscribe', 
+    axios.delete("https://zorlvan-enterprise-backend.herokuapp.com/account/unsubscribe", 
     {
-      "to_account_id": pk
-    }, {
-      headers: {'Authorization': `Token ${window.localStorage.getItem('token')}`},
+      headers: {
+        Authorization: `Token ${window.localStorage.getItem('token')}`
+      },
+      data: {
+        "to_account_id": pk
+      }
     })
     .then(function (response) {
       console.log(response);
       document.getElementById('sub'+pk).style.display = 'block'
       document.getElementById('unsub'+pk).style.display = 'none'
-
     })
     .catch(function (error) {
       console.log(error);
@@ -141,7 +143,6 @@ export default function ShopProductCard({ product }) {
               variant="contained"
               onClick={sub}
               startIcon={<Icon icon={Heart} />}
-              
             >
               Subscribe!
             </Button>
@@ -152,9 +153,8 @@ export default function ShopProductCard({ product }) {
               variant="contained"
               onClick={unsub}
               startIcon={<Icon icon={Heart} />}
-              
             >
-              Unsubscribe.
+              Unsubscribe
             </Button>
             </span>
             <Typography variant="subtitle2" noWrap>
