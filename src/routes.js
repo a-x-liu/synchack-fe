@@ -10,7 +10,6 @@ import Products from './pages/Products';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-import YourMum from './pages/YourMum';
 import CreatePost from './pages/CreatePost';
 import FullPost from './pages/FullPost';
 
@@ -27,7 +26,6 @@ export default function Router() {
         { path: 'user', element: <User /> },
         { path: 'explore', element: <Products /> },
         { path: 'blog', element: <Blog /> },
-        { path: 'yourmum', element: <YourMum /> },
         { path: 'createpost', element: <CreatePost /> },
         { path: 'viewpost/:postid', element: <FullPost />}
       ]

@@ -6,6 +6,7 @@ import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import fileTextFill from '@iconify/icons-eva/file-text-fill';
 // material
 import { alpha } from '@material-ui/core/styles';
 import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '@material-ui/core';
@@ -23,9 +24,9 @@ const MENU_OPTIONS = [
   //   linkTo: '/dashboard/profile',
   // },
   {
-    label: 'Feed',
-    icon: personFill,
-    linkTo: '#'
+    label: 'Blog',
+    icon: fileTextFill,
+    linkTo: '/dashboard/blog'
   },
   {
     label: 'Settings',

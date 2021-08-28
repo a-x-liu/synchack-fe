@@ -38,7 +38,7 @@ const TABLE_HEAD = [
   // { id: 'company', label: 'Company', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
   // { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
+  // { id: 'status', label: 'Status', alignRight: false },
   { id: '' }
 ];
 
@@ -161,14 +161,14 @@ export default function User() {
       }
     })
     .then(function (response) {
-      const data = response.data.results;
-      for (let i = 0; i < response.data.count; i++) {
-        if (response.data.results[i].username === "admin") {
-          const index = data.indexOf(i);
-          data.splice(index, 1);
-        }
-      }
-      setUsers(data)
+      // const data = response.data.results;
+      // for (let i = 0; i < response.data.count; i++) {
+      //   if (response.data.results[i].username === "admin") {
+      //     const index = data.indexOf(i);
+      //     data.splice(index, 1);
+      //   }
+      // }
+      setUsers(response.data.results)
       // window.localStorage.setItem('token', response.data.token);
       // window.localStorage.setItem('user_id', response.data.user_id);
       // if(response.data.response === "Successful login!"){
@@ -270,7 +270,7 @@ export default function User() {
                             </Label>
                           </TableCell> */}
                           <TableCell align="right">
-                            <UserMoreMenu />
+                            <UserMoreMenu pk={pk} />
                           </TableCell>
                         </TableRow>
                       );

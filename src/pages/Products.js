@@ -64,7 +64,7 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Explore organizations">
+    <Page title="Explore Organizations">
       <Container>
         <Typography variant="h4" sx={{ mb: 5 }}>
           Explore various organizations that accept donations, subscriptions and more!
@@ -85,7 +85,7 @@ export default function EcommerceShop() {
               onOpenFilter={handleOpenFilter}
               onCloseFilter={handleCloseFilter}
             />
-            <ProductSort />
+            {/* <ProductSort /> */}
           </Stack>
         </Stack>
 
