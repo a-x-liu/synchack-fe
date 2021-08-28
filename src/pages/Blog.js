@@ -116,7 +116,7 @@ export default function Blog() {
           <Card className={classes.root} style={{ position: 'fixed', marginLeft: '10px' }}>
             <CardContent>
               <Typography variant="h6">
-                Your Top Charities
+                Suggested Organisations
               </Typography>
               
               <List dense={true}>
