@@ -123,7 +123,6 @@ export default function User() {
       'is_mission': donos,
       'dollar_target': values.amount,
       'current_dollar': 0,
-      'is_shared': 1,
     }
     console.log(data)
 

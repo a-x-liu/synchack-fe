@@ -65,7 +65,8 @@ export default function DashboardApp() {
   const [profile, setProfile] = useState({});
   // let isFinished = false;
   const [isFinished, setIsFinished] = useState(false);
-
+  const[profileData, setProfileData] = useState(0);
+  
   useEffect(async () => {
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/account/profile?user_id=${params.userId}`, 
     { 
@@ -80,6 +81,7 @@ export default function DashboardApp() {
     .catch(function (error) {
       console.log(error);
     });
+
     axios.get(`https://zorlvan-enterprise-backend.herokuapp.com/post/userposts/?user_id=${params.userId}`, null)
     .then(function (response) {
       console.log(response);
@@ -120,7 +122,7 @@ export default function DashboardApp() {
   //     console.log(error);
   //   });
   // }
-  const[profileData, setProfileData] = useState(0);
+  
   return (
     <Page title={`${profile.username}'s profile`}>
       {/* <button onClick={profile}>Profile</button> */}
