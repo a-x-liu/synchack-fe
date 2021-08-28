@@ -73,6 +73,9 @@ EditProfile.propTypes = {
 export default function EditProfile({ profile, isFinished }) {
   const info = profile;
   // console.log(info)
+  if (info.is_org) {
+    document.getElementById("personalNames").style.display = "none";
+  }
   const [thumbnail, setThumbnail] = useState('');
   const [values, setValues] = useState({
     first_name: "",
@@ -125,7 +128,7 @@ export default function EditProfile({ profile, isFinished }) {
     <Page title="Profile | PhilGreat">
       <Container>
         <Card style={{ display: 'flex', flexDirection: 'column', padding: '30px' }}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} id="personalNames">
             <SearchStyle
               placeholder="First name"
               style={{ marginBottom: '10px' }}
