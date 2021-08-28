@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import axios from 'axios';
+import axios from 'axios'
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { Box, Card, Link, Typography, Stack } from '@material-ui/core';
@@ -28,12 +28,12 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
-  const { name, cover, subscribers,description, colors, status } = product;
+  const { bio, email, first_name, is_org, last_name, pk, profile_pic, username } = product;
 
   return (
     <Card>
       <Box sx={{ pt: '100%', position: 'relative'}}>
-        {status && (
+        {/* {status && (
           <Label
             variant="filled"
             color={(status === 'sale' && 'error') || 'info'}
@@ -47,21 +47,21 @@ export default function ShopProductCard({ product }) {
           >
             {status}
           </Label>
-        )}
-        <ProductImgStyle alt={name} src={cover} />
+        )} */}
+        <ProductImgStyle alt={first_name} src={profile_pic} />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
         <Link to="/dashboard" color="inherit" underline="hover" component={RouterLink}>
           <Typography variant="subtitle2" noWrap textAlign={'center'}>
-            {name}
+            {username}
           </Typography>
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ColorPreview colors={colors} />
+          {/* <ColorPreview colors={colors} /> */}
           <Typography variant="subtitle2" noWrap>
-            {description}
+            {bio}
           </Typography>
           <Typography variant="subtitle1">
             <Typography
@@ -73,9 +73,9 @@ export default function ShopProductCard({ product }) {
               }}
             >
             </Typography>
-            <Typography variant="subtitle2" noWrap>
+            {/* <Typography variant="subtitle2" noWrap>
               No. of Subs: {subscribers}
-            </Typography>
+            </Typography> */}
           </Typography>
         </Stack>
       </Stack>

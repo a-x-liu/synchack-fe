@@ -19,15 +19,17 @@ import PRODUCTS from '../_mocks_/products';
 
 export default function EcommerceShop() {
   const [openFilter, setOpenFilter] = useState(false);
-  const [prod, setProd] = useState({});
+  const [prod, setProd] = useState([]);
   React.useEffect(async () => {
-    axios.post('https://zorlvan-enterprise-backend.herokuapp.com/account/explore', null, {
+    axios.get('https://zorlvan-enterprise-backend.herokuapp.com/account/explore', {
       headers:{
         'Authorization': `Token ${window.localStorage.getItem('token')}`
       },
     })
     .then(function (response) {
       console.log(response);
+      setProd(response.data.results);
+      console.log(prod);
     })
     .catch(function (error) {
       console.log(error);
@@ -87,7 +89,7 @@ export default function EcommerceShop() {
           </Stack>
         </Stack>
 
-        <ProductList products={PRODUCTS} />
+        <ProductList products={prod} />
       </Container>
     </Page>
   );
